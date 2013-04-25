@@ -70,10 +70,10 @@ public class Information {                //этот класс занимается считыванием вс
 	
 	public static void loadImages() {                //загружает фотографии нужные
 	       try {
-	    	   imageLeo=ImageIO.read(new File("c:\\leo.png"));
-	    	   imageSleepingLeo=ImageIO.read(new File("c:\\sleeping_leo.jpg"));
-	    	   imageGreenGrass=ImageIO.read(new File("c:\\GreenGrass.jpg"));
-	    	   imageYellowGrass=ImageIO.read(new File("c:\\YellowGrass.jpg"));
+	    	   imageLeo=ImageIO.read(new File("Textures/leo.png"));
+	    	   imageSleepingLeo=ImageIO.read(new File("Textures/sleeping_leo.jpg"));
+	    	   imageGreenGrass=ImageIO.read(new File("Textures/GreenGrass.jpg"));
+	    	   imageYellowGrass=ImageIO.read(new File("Textures/YellowGrass.jpg"));
 	       		} 
 	       catch (IOException e) {System.out.println("Can't read file");}
 	       }

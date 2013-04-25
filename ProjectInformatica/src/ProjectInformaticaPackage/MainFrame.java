@@ -16,7 +16,7 @@ import javax.swing.*;
 		public MainFrame(int DEFAULT_WIDTH, int DEFAULT_HEIGHT) {
 			setTitle("ProjectInformatica");
 			setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-			LeoPanel lpanel=new LeoPanel();
+			BioPanel lpanel=new BioPanel();
 			add(lpanel);
 		}
 		//private LinkedList<LifeForm> getListOfLifeForms() {
