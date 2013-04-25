@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
+//Kulass travushka-muravushka
 public class Grass {
 	   private int xPosition;
 	   private int yPosition;
