@@ -5,11 +5,11 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-//Kulass travushka-muravushka
-public class Grass {
-	   private int xPosition;
+//Kulass travushka-muravushka             
+public class Grass {                 //это только та часть функциональная класса трава, которая была мне необходима для написания класса leo
+	   private int xPosition;         //сейчас трава не может разрастаться, это только неподвижная постепенно умирающая зелень
 	   private int yPosition;
-       private int timeNewAppears;
+       private int timeNewAppears;     //задел на будущее
        private int age;
        private float energyValue;
        private Image imageGreenGrass;
@@ -22,8 +22,8 @@ public class Grass {
     	   this.age=age;
        }
        
-       public boolean makeDecision(){
-    	   //this.age--;
+       public boolean makeDecision(){        //этот метод вызывается из StartLife при каждом обходе всех элементов из массива травы
+    	   this.age--;                        //здесь каждый участок травы в будущем будет решать, что ему делать- разрастаться или нет
     	   if (age<=0) return false; return true;
        }
        public Image getGrassImage() {

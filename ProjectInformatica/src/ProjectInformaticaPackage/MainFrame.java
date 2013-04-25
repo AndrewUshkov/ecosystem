@@ -12,7 +12,7 @@ import javax.swing.*;
 			frame.setVisible(true);
 		}
 }*/
-	class MainFrame extends JFrame {
+	class MainFrame extends JFrame {                                   
 		public MainFrame(int DEFAULT_WIDTH, int DEFAULT_HEIGHT) {
 			setTitle("ProjectInformatica");
 			setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
@@ -22,42 +22,27 @@ import javax.swing.*;
 		//private LinkedList<LifeForm> getListOfLifeForms() {
 		//}
 	}
-	class LeoPanel extends JPanel {
+	class BioPanel extends JPanel {
 		//private Image image;
-		public LeoPanel() {
+		public BioPanel() {
 			
 			
 			
 		}
-					public void paintComponent(Graphics g) {
+					public void paintComponent(Graphics g) {    // рисуем всех животных и всю траву
 						super.paintComponent(g);
-						//LinkedList<LifeForm> listOfLifeForms=Information.getLinkedListOfLifeForms();
-						//Iterator<LifeForm> currentLifeForm = listOfLifeForms.iterator();
 						int sizeOfCell=Information.getSizeOfCell();
-						/*for (int i=0;i<Information.getAmountPredator();i++) {
-							LifeForm CurrentLifeForm=listOfLifeForms.get(i);
-							
-							if (CurrentLifeForm.getAnimalImage()==null) return;
-							
-								g.drawImage(CurrentLifeForm.getAnimalImage(), 
-												CurrentLifeForm.getXPosition(), 
-														CurrentLifeForm.getYPosition(),sizeOfCell,sizeOfCell, null);
-							
-							
-							
-							
-						}*/
 						
 						for (Iterator<LifeForm> current = Information.getLinkedListOfLifeForms().iterator(); current.hasNext(); ) {
 						    LifeForm val = current.next();
 						    if (val.getAnimalImage()==null) return;
-						    g.drawImage(val.getAnimalImage(), 
+						    g.drawImage(val.getAnimalImage(),    //вот здесь с помощью getAnimalImage можно в зависимости от состояния объекта (гапример, он спит) ставить разные картинки
 									val.getXPosition(), 
 											val.getYPosition(),sizeOfCell,sizeOfCell, null);
 						}
 						
 						
-						for (Iterator<Grass> current = Information.getLinkedListOfGrass().iterator(); current.hasNext(); ) {
+						for (Iterator<Grass> current = Information.getLinkedListOfGrass().iterator(); current.hasNext(); ) { //аналогично для травы
 						    Grass val = current.next();
 						    if (val.getGrassImage()==null) return;
 						    g.drawImage(val.getGrassImage(), 
@@ -66,41 +51,6 @@ import javax.swing.*;
 						}
 						
 						
-						
-			//for (int i=1;i<=this.;i++) {
-				
-			//}
+					
 					}
 		}
-	
-	
-	
-	
-	
-	
-	/*class GrassPanel extends JPanel {
-		//private Image image;
-		public GrassPanel() {
-			
-			
-			
-		}
-					public void paintComponent(Graphics g) {
-						super.paintComponent(g);
-						System.out.println("Grass repaint");
-						int sizeOfCell=Information.getSizeOfCell();
-						for (Iterator<Grass> current = Information.getLinkedListOfGrass().iterator(); current.hasNext(); ) {
-						    Grass val = current.next();
-						    if (val.getGrassImage()==null) return;
-						    g.drawImage(val.getGrassImage(), 
-									val.getXPosition(), 
-											val.getYPosition(),sizeOfCell,sizeOfCell, null);
-						}
-						
-						
-						
-			//for (int i=1;i<=this.;i++) {
-				
-			//}
-					}
-		}*/

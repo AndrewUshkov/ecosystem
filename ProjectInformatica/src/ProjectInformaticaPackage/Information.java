@@ -10,20 +10,20 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
-public class Information {
+public class Information {                //этот класс занимается считыванием всех данных с консоли или компьютера (например, картинок для значков)
 	private static int amountPredator=4;
-	private static ArrayList<LifeForm> listOfLifeForms=new ArrayList<LifeForm>();
-	private static LinkedList<LifeForm> linkedListOfLifeForms=new LinkedList<LifeForm>();
-	private static LinkedList<Grass> linkedListOfGrass=new LinkedList<Grass>();
-	private static int sizeOfCell;
-	private static int defaultWeight;
+	private static ArrayList<LifeForm> listOfLifeForms=new ArrayList<LifeForm>();    //здесь я написал коллекции животных индексные и ссылочные, но в данный момент во всей программе используются только ссылочные коллекции
+	private static LinkedList<LifeForm> linkedListOfLifeForms=new LinkedList<LifeForm>();  //ведь скорость перебора всех элементов выше именнно в ссылочных linked коллекциях
+	private static LinkedList<Grass> linkedListOfGrass=new LinkedList<Grass>();  //аналогично эта linked коллекция содержит все объекты травы
+	private static int sizeOfCell;   //размер картинок, отображаемых на экране
+	private static int defaultWeight;     //это два размера главного окга программы
 	private static int defaultHeight;
-	private static Image imageGreenGrass;
+	private static Image imageGreenGrass;   //а это все картинки, используемые в программе (пока их 4 штуки)
 	private static Image imageYellowGrass;
 	private static Image imageLeo;
 	private static Image imageSleepingLeo;
 	
-	public static void readPredatorsFromConsole(/*MainFrame frame*/) {
+	public static void readPredatorsFromConsole(/*MainFrame frame*/) {    //понятно что делает. Пока что не реализован ввод данных  с клавиатуры
 		Scanner in=new Scanner(System.in);
 		
 		/*for (int i=0;i<amountPredator;i++) {
@@ -40,7 +40,7 @@ public class Information {
 		linkedListOfLifeForms.add(new Leo(true, 200, 100,  95, 80, 95,  50,     2,1,3,   0,0,0));
 	
 	
-		Iterator<LifeForm> currentLifeForm = listOfLifeForms.iterator();   // проверка, что делает итератор
+		/*Iterator<LifeForm> currentLifeForm = listOfLifeForms.iterator();   // проверка, что делает итератор
 		while(currentLifeForm.hasNext()) {
 			System.out.println(currentLifeForm.next().getXPosition()+" X");
 			System.out.println(currentLifeForm.next().getYPosition()+" Y");
@@ -52,10 +52,10 @@ public class Information {
 			System.out.println(currentNewLifeForm.next().getXPosition()+" LX");
 			System.out.println(currentNewLifeForm.next().getYPosition()+" LY");
 			
-		}
+		}*/
 	}
 	
-	public static void readGrassFromConsole() {
+	public static void readGrassFromConsole() {    //аналогично предыдущему методу пока еще не реализован
 		linkedListOfGrass.add(new Grass(50,30,120));
 		linkedListOfGrass.add(new Grass(90,10,150));
 		linkedListOfGrass.add(new Grass(200,100,100));
@@ -68,7 +68,7 @@ public class Information {
 		linkedListOfGrass.add(new Grass(300,100,100));
 	}
 	
-	public static void loadImages() {
+	public static void loadImages() {                //загружает фотографии нужные
 	       try {
 	    	   imageLeo=ImageIO.read(new File("c:\\leo.png"));
 	    	   imageSleepingLeo=ImageIO.read(new File("c:\\sleeping_leo.jpg"));
@@ -78,7 +78,7 @@ public class Information {
 	       catch (IOException e) {System.out.println("Can't read file");}
 	       }
 	
-	public static void readSizeOfCellFromConsole() {
+	public static void readSizeOfCellFromConsole() {      //считывать будет в будущем размер иконок
 		sizeOfCell=20;	
 	}
 	
@@ -86,16 +86,16 @@ public class Information {
 		return amountPredator;
 	}
 	
-	public static ArrayList<LifeForm> getListOfLifeForms() {
+	public static ArrayList<LifeForm> getListOfLifeForms() {        //сейчас не используется
 		return listOfLifeForms;
 	}
-	public static LinkedList<LifeForm> getLinkedListOfLifeForms() {
+	public static LinkedList<LifeForm> getLinkedListOfLifeForms() {   //через этот статический метод те объекты, которым нужно, смогут получить досткп к коллекции животных
 		return linkedListOfLifeForms;
 	}
-	public static LinkedList<Grass> getLinkedListOfGrass() {
+	public static LinkedList<Grass> getLinkedListOfGrass() { //аналогично для травы
 		return linkedListOfGrass;
 	}
-	public static int getSizeOfCell() {
+	public static int getSizeOfCell() {    //через него все объекты могут узнать размер иконок
 		return sizeOfCell;
 	}
 	

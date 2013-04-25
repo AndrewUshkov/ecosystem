@@ -1,8 +1,8 @@
 package ProjectInformaticaPackage;
 
-public interface IDynamicArray {
-	int size();
-
+public interface IDynamicArray {              //вообще непонятно зачем сюда скопировал интерфейс из задачи
+	int size();                              //авось пригодится
+   
 	boolean isEmpty();
 
 	boolean contains(Object o);

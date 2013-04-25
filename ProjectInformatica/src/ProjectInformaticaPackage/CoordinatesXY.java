@@ -1,6 +1,6 @@
 package ProjectInformaticaPackage;
 
-public class CoordinatesXY {
+public class CoordinatesXY {                  //класс для передачи координат. Не знаю, полезно или нет.
 	private int xCoord;
 	private int yCoord;
 	

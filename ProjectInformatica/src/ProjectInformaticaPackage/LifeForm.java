@@ -2,7 +2,7 @@ package ProjectInformaticaPackage;
 
 import java.awt.Image;
 
-public interface LifeForm {
+public interface LifeForm {          //это интерфейс для predator и herbivore
 	void setAge(float newAge);
 	float getAge();
 	void setStarvation(float newStarvation);
@@ -22,5 +22,5 @@ public interface LifeForm {
 	void setLegacyPassionCoefficient(float newLPCoef);
 	Image getAnimalImage();
 	//CoordinatesXY goToNearestPredator();
-	boolean makeDecision();
+	boolean makeDecision();                    //любой predator или herbivore должен иметь этот метод, чтобы его вызывали в цикле перебора всех объектов из коллекции
 }

@@ -1,6 +1,6 @@
 package ProjectInformaticaPackage;
 
-public class SimpleDynamicArray implements IDynamicArray {
+public class SimpleDynamicArray implements IDynamicArray {    //ну не знаю зачем сюда скопировал из домашнего задания, пока не пригодилось. Это потому что пользуемся коллекциями стандартными.
 	private int defaultsize = 1;
 	private Object[] simplearray = new Object[defaultsize];
 	private int size = simplearray != null ? simplearray.length : 0;

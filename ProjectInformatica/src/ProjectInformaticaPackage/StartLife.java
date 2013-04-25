@@ -7,18 +7,17 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 
 class StartLife extends JFrame {
-	public static void main(String[] args) {
+	public static void main(String[] args) {    //здесь начинает работать программа
 		//int amountPredator=4;
 		//int amountHerbivore;
 		//ArrayList<LifeForm> listOfLifeForms=new ArrayList<LifeForm>();
-		Information.readPredatorsFromConsole(/*this*/);
+		Information.readPredatorsFromConsole(/*this*/);  //много статических методов считывания информации
 		Information.readGrassFromConsole();
 		Information.readSizeOfCellFromConsole();
 		Information.readDefaultHeightFromConsole();
 		Information.readDefaultWeightFromConsole();
 		Information.loadImages();
-		//listOfLifeForms=Information.getListOfLifeForms();
-		MainFrame frame=new MainFrame(Information.getDefaultWeight(), Information.getDefaultHeight());
+		MainFrame frame=new MainFrame(Information.getDefaultWeight(), Information.getDefaultHeight()); //создаем главное окно
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
@@ -54,13 +53,16 @@ class StartLife extends JFrame {
 			Information.getLinkedListOfLifeForms().remove();}}*/
 			
 			
+			
+			//здесь перебираем все объекты из коллекций животных и травы и у каждого вызываем метод makeDecision. Как бы предоставляем ход этому объекту.
 			for (Iterator<LifeForm> current = Information.getLinkedListOfLifeForms().iterator(); current.hasNext(); ) {
 			    LifeForm currentAnimal = current.next();
-			    if (currentAnimal.makeDecision()==false) {
+			    if (currentAnimal.makeDecision()==false) { //false появляется, если объект погибает
 			        current.remove();
 			    }
 			}
 			
+			//аналогично для травы
 			for (Iterator<Grass> current = Information.getLinkedListOfGrass().iterator(); current.hasNext(); ) {
 			    Grass currentGrass = current.next();
 			    if (currentGrass.makeDecision()==false) {
