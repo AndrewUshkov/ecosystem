@@ -1,11 +1,11 @@
 package ProjectInformaticaPackage;
 
-public class CoordinatesXY {                  //класс для передачи координат. Не знаю, полезно или нет.
+public class CoordinatesXY {                  //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ.
 	private int xCoord;
 	private int yCoord;
 	
 	public int getXCoord() {
-		return xCoord;
+		return xCoord; 
 	}
 	public void setXCoord(int xCoord) {
 		this.xCoord = xCoord;
