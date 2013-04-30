@@ -12,8 +12,8 @@ import javax.imageio.ImageIO;
 
 public class Information {                //этот класс занимается считыванием всех данных с консоли или компьютера (например, картинок для значков)
 	private static int amountPredator=4;
-	private static ArrayList<LifeForm> listOfLifeForms=new ArrayList<LifeForm>();    //здесь я написал коллекции животных индексные и ссылочные, но в данный момент во всей программе используются только ссылочные коллекции
-	private static LinkedList<LifeForm> linkedListOfLifeForms=new LinkedList<LifeForm>();  //ведь скорость перебора всех элементов выше именнно в ссылочных linked коллекциях
+	private static ArrayList<Leo> listOfLeos=new ArrayList<Leo>();    //здесь я написал коллекции животных индексные и ссылочные, но в данный момент во всей программе используются только ссылочные коллекции
+	private static LinkedList<Leo> linkedListOfLeos=new LinkedList<Leo>();  //ведь скорость перебора всех элементов выше именнно в ссылочных linked коллекциях
 	private static LinkedList<Grass> linkedListOfGrass=new LinkedList<Grass>();  //аналогично эта linked коллекция содержит все объекты травы
 	private static int sizeOfCell;   //размер картинок, отображаемых на экране
 	private static int defaultWeight;     //это два размера главного окга программы
@@ -34,10 +34,10 @@ public class Information {                //этот класс занимается считыванием вс
 		}*/
 		in.close();
 	
-		linkedListOfLifeForms.add(new Leo(true, 100, 200, 100, 50, 100, 100,     1,1,3,   0,0,0));
-		linkedListOfLifeForms.add(new Leo(false, 50, 400,  80, 60, 90,  50,     2,2,1,   0,0,0));
-		linkedListOfLifeForms.add(new Leo(true, 500, 200,  90, 70, 80,  70,     3,3,3,   0,0,0));
-		linkedListOfLifeForms.add(new Leo(true, 200, 100,  95, 80, 95,  50,     2,1,3,   0,0,0));
+		linkedListOfLeos.add(new Leo(true, 100, 200, 100, 50, 100, 100,     (float)1,1,3,   0,0,0));
+		linkedListOfLeos.add(new Leo(false, 50, 400,  100, 60, 85,  20,    (float) 1,2,1,   0,0,0));
+		linkedListOfLeos.add(new Leo(true, 500, 200,  100, 70, 20,  70,     (float)1,3,3,   0,0,0));
+		linkedListOfLeos.add(new Leo(false, 200, 100,  100, 80, 90,  50,     (float)1,1,3,   0,0,0));
 	
 	
 		/*Iterator<LifeForm> currentLifeForm = listOfLifeForms.iterator();   // проверка, что делает итератор
@@ -86,11 +86,11 @@ public class Information {                //этот класс занимается считыванием вс
 		return amountPredator;
 	}
 	
-	public static ArrayList<LifeForm> getListOfLifeForms() {        //сейчас не используется
-		return listOfLifeForms;
+	public static ArrayList<Leo> getListOfLeos() {        //сейчас не используется
+		return listOfLeos;
 	}
-	public static LinkedList<LifeForm> getLinkedListOfLifeForms() {   //через этот статический метод те объекты, которым нужно, смогут получить досткп к коллекции животных
-		return linkedListOfLifeForms;
+	public static LinkedList<Leo> getLinkedListOfLeos() {   //через этот статический метод те объекты, которым нужно, смогут получить досткп к коллекции животных
+		return linkedListOfLeos;
 	}
 	public static LinkedList<Grass> getLinkedListOfGrass() { //аналогично для травы
 		return linkedListOfGrass;

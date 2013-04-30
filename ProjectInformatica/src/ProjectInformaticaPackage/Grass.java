@@ -23,7 +23,7 @@ public class Grass {                 //это только та часть функциональна€ класса
        }
        
        public boolean makeDecision(){        //этот метод вызываетс€ из StartLife при каждом обходе всех элементов из массива травы
-    	   this.age--;                        //здесь каждый участок травы в будущем будет решать, что ему делать- разрастатьс€ или нет
+    	   //this.age--;                        //здесь каждый участок травы в будущем будет решать, что ему делать- разрастатьс€ или нет
     	   if (age<=0) return false; return true;
        }
        public Image getGrassImage() {
@@ -41,6 +41,6 @@ public class Grass {                 //это только та часть функциональна€ класса
 		return yPosition;
 	}
 	public float getEnergyValue() {
-		if (age>=50) return (float) 2.5; else return 1;
+		if (age>=50) return (float) 5; else return 4;
 	}
 }

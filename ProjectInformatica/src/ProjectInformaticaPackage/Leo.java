@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -26,6 +28,7 @@ private float legacyStarvationCoefficient;
 private float legacyPassionCoefficient;
 private float legacyExhaustionCoefficient;
 private float decision;
+ArrayList <LeoWish> leoNeeds;
 public float getExhaustion() {
 	return exhaustion;
 }
@@ -44,7 +47,7 @@ public float getLegacyExhaustionCoefficient() {
 public void setLegacyExhaustionCoefficient(float legacyExhaustionCoefficient) {
 	this.legacyExhaustionCoefficient = legacyExhaustionCoefficient;
 }
-ArrayList<LifeForm> listOfLifeForms=Information.getListOfLifeForms();
+ArrayList<Leo> listOfLeos=Information.getListOfLeos();
 
 
 public Leo (/*MainFrame window, */boolean IfMale, int startXPosition, int startYPosition, float startAge, 
@@ -129,10 +132,12 @@ public void setLegacyPassionCoefficient(float newLPCoef) {
 	legacyPassionCoefficient=newLPCoef;
 }
 public Image getAnimalImage() {
-		if (decision==4) {return Information.getImageSleepingLeo();} else
+		if (decision==3) {return Information.getImageSleepingLeo();} else
 			return Information.getImageLeo();
 }
-
+public boolean femaleAgree() {
+	if (passion<=20) return true; return false;
+}
 public CoordinatesXY goToNearestPredator() {
 	CoordinatesXY Coords=new CoordinatesXY();
 	/*int index=0;
@@ -147,11 +152,11 @@ public CoordinatesXY goToNearestPredator() {
 	if (Coords.getXCoord()>=this.xPosition) {this.xPosition+=4;} else this.xPosition-=4;
 	if (Coords.getYCoord()>=this.yPosition) {this.yPosition+=4;} else this.yPosition-=4;
 	return Coords;*/
-	Iterator<LifeForm> currentLifeForm = Information.getLinkedListOfLifeForms().iterator();
+	Iterator<Leo> currentLifeForm = Information.getLinkedListOfLeos().iterator();
 	if (currentLifeForm.hasNext()) {currentLifeForm.next();}
-	LifeForm nearestLeo=Information.getLinkedListOfLifeForms().getFirst();
+	Leo nearestLeo=Information.getLinkedListOfLeos().getFirst();
     while(currentLifeForm.hasNext()){
-         LifeForm element =currentLifeForm.next();
+         Leo element =currentLifeForm.next();
          if ((element.getXPosition()+element.getYPosition())*(element.getXPosition()+element.getYPosition())
  				< (nearestLeo.getXPosition()+nearestLeo.getYPosition())*(nearestLeo.getXPosition()+nearestLeo.getYPosition())) {
         	 nearestLeo=element;
@@ -194,20 +199,42 @@ public void goToNearestGrass() {
 private void feelHungry() {
 	
 }
-private void feelPassion() {
-	if (!Information.getLinkedListOfLifeForms().isEmpty()) {
+private void tryMakeChildren(Leo female) {
+	if (female.femaleAgree()) {this.passion=100; female.setPassion(100);}
+}
+private int feelPassion() {
+	if (!Information.getLinkedListOfLeos().isEmpty()) {
 		//LifeForm nearestLeo=Information.getLinkedListOfLifeForms().getFirst();
 		Leo nearestLeo=null;
 		Leo currentLeo;
-		for (Iterator<LifeForm> current = Information.getLinkedListOfLifeForms().iterator(); current.hasNext(); ) {
-		    currentLeo=((Leo)current.next());
-		    	if (   ((  !((Leo)currentLeo).isMale() )&& (this.isMale())) ||   ((  ((Leo)currentLeo).isMale() )&& (!this.isMale()))       ) {nearestLeo=currentLeo;}   
+		int currentDistance=-1;
+		int nearestDistance=-1;
+		for (Iterator<Leo> current = Information.getLinkedListOfLeos().iterator(); current.hasNext(); ) {
+			currentLeo=current.next();
+			if (    (nearestLeo==null)&&( ((this.isMale())^(currentLeo.isMale()))          )
+					) 
+			{
+				nearestLeo=currentLeo; 
+				nearestDistance=(nearestLeo.getXPosition()-this.xPosition)*(nearestLeo.getXPosition()-this.xPosition)+(nearestLeo.getYPosition()-this.yPosition)*(nearestLeo.getYPosition()-this.yPosition);
+					}
+			if ((nearestLeo!=null)&&(nearestLeo!=currentLeo)  &&
+					    ((this.isMale())^(currentLeo.isMale()))         ) {
+				currentDistance=(currentLeo.getXPosition()-this.xPosition)*(currentLeo.getXPosition()-this.xPosition)+(currentLeo.getYPosition()-this.yPosition)*(currentLeo.getYPosition()-this.yPosition);
+				if (currentDistance<nearestDistance) {nearestDistance=currentDistance; nearestLeo=currentLeo;}
+				
+			}
+			
 		}
-		if (nearestLeo==null) {return;}
-		int nearestDistance=(nearestLeo.getXPosition()-this.xPosition)*(nearestLeo.getXPosition()-this.xPosition)+(nearestLeo.getYPosition()-this.yPosition)*(nearestLeo.getYPosition()-this.yPosition);
-		int currentDistance;
-		LifeForm newCurrentLeo;
-		for (Iterator<LifeForm> current = Information.getLinkedListOfLifeForms().iterator(); current.hasNext(); ) {
+		if (nearestLeo==null) {return -1;}
+		if (nearestLeo.getXPosition()>=this.xPosition) {this.xPosition+=4;} else this.xPosition-=4;
+		if (nearestLeo.getYPosition()>=this.yPosition) {this.yPosition+=4;} else this.yPosition-=4;
+		if (      (nearestDistance<=Information.getSizeOfCell())&&
+									(this.isMale())		) {this.tryMakeChildren(nearestLeo);}
+		return 0;
+		//int nearestDistance=(nearestLeo.getXPosition()-this.xPosition)*(nearestLeo.getXPosition()-this.xPosition)+(nearestLeo.getYPosition()-this.yPosition)*(nearestLeo.getYPosition()-this.yPosition);
+		
+		/*Leo newCurrentLeo;
+		for (Iterator<Leo> current = Information.getLinkedListOfLeos().iterator(); current.hasNext(); ) {
 		    newCurrentLeo = current.next();
 		    currentDistance=(newCurrentLeo.getXPosition()-this.xPosition)*(newCurrentLeo.getXPosition()-this.xPosition)+(newCurrentLeo.getYPosition()-this.yPosition)*(newCurrentLeo.getYPosition()-this.yPosition);
 		    
@@ -218,37 +245,49 @@ private void feelPassion() {
 		if (nearestLeo.getXPosition()>=this.xPosition) {this.xPosition+=4;} else this.xPosition-=4;
 		if (nearestLeo.getYPosition()>=this.yPosition) {this.yPosition+=4;} else this.yPosition-=4;
 		//if (nearestDistance<=Information.getSizeOfCell()) {this.starvation+=nearestGrass.getEnergyValue();}
-		}
-		}
+		}*/
+		} else return -1;
 }
 private void feelKillInstinct() {
 	
 }
 private void feelSleepy() {
-	if (this.exhaustion<=99) {this.exhaustion+=1;}
+	this.exhaustion+=5*this.exhaustionCoefficient;
 }
 private int getDecision() {
-	float starvation=this.starvation;
-	float passion=this.passion;
-	float exhaustion=this.exhaustion;
 	this.age-=0.5;                                              //установка новых значений полей
-	starvation-=this.starvationCoefficient;
-	passion-=this.passionCoefficient;  
-	exhaustion-=this.exhaustionCoefficient;
-	if (age<=0) return 0;
-	if (starvation<=0) return 0;
-	if (exhaustion<=0) return 4;
-	if ((starvation<=exhaustion)&&(starvation<=passion)&&(passion>=exhaustion)) return 1;
-	if ((starvation>=passion)&&(passion<=exhaustion)) return 2;
-	return 4;
+	this.starvation-=this.starvationCoefficient;
+	if (passion>20) {this.passion-=this.passionCoefficient;}  
+	this.exhaustion-=this.exhaustionCoefficient;
+	if (this.age<=0) {System.out.println("Age"); return 0;}
+	if (this.starvation<=0) {System.out.println("Starvation"); return 0;}
+	if (this.exhaustion<=0) return 3;
+	
+	if ((this.starvation<=this.exhaustion)&&(this.starvation<=this.passion)) return 1;
+	if ((this.starvation>=this.passion)&&(this.passion<=this.exhaustion)) return 2;
+	if ((this.starvation>=this.exhaustion)&&(this.exhaustion<=this.passion)) return 3;
+	return 3;
+	/*int length=this.leoNeeds.length;
+	Arrays.sort(this.leoNeeds);*/
+	
+	/*ArrayList<LeoWish> leoNeeds= new  ArrayList<LeoWish>();
+		leoNeeds.add(new LeoWish(1,this.starvation));
+		leoNeeds.add(new LeoWish(2,this.passion));
+		leoNeeds.add(new LeoWish(3,this.exhaustion));
+	
+		
+	Collections.sort(leoNeeds);
+	return leoNeeds.get(leoNeeds.size()-1).getNumberOfLeoNeed();*/
+	
 }
+
 public boolean makeDecision() {
 	decision=this.getDecision();
 	if (decision==0) {return false;}
-	if (decision==1) {System.out.println("Make decision: Feel hungry"); this./*feelHungry();*/goToNearestGrass();}
-	if (decision==2) {System.out.println("Make decision: Feel passion"); this.feelPassion();}
-	if (decision==3) {this.feelKillInstinct();}
-	if (decision==4) {System.out.println("Make decision: Sleep"); this.feelSleepy();}
+	if (decision==1) {System.out.println("Make decision: Feel hungry"+this.starvation+" "+this.exhaustion+" "+this.passion); this./*feelHungry();*/goToNearestGrass();}
+	if (decision==2) {System.out.println("Make decision: Feel passion"+this.starvation+" "+this.exhaustion+" "+this.passion); if (this.feelPassion()==-1) {}}
+	if (decision==4) {this.feelKillInstinct();}
+	if (decision==3) {System.out.println("Make decision: Sleep"+this.starvation+" "+this.exhaustion+" "+this.passion); this.feelSleepy();}
 	return true;
 }
 }

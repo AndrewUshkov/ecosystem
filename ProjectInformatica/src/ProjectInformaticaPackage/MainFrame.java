@@ -33,10 +33,11 @@ import javax.swing.*;
 						super.paintComponent(g);
 						int sizeOfCell=Information.getSizeOfCell();
 						
-						for (Iterator<LifeForm> current = Information.getLinkedListOfLifeForms().iterator(); current.hasNext(); ) {
-						    LifeForm val = current.next();
-						    if (val.getAnimalImage()==null) return;
-						    g.drawImage(val.getAnimalImage(),    //вот здесь с помощью getAnimalImage можно в зависимости от состояния объекта (гапример, он спит) ставить разные картинки
+						for (Iterator<Leo> current = Information.getLinkedListOfLeos().iterator(); current.hasNext(); ) {
+						    Leo val = current.next();
+						    Image image;
+						    if ((image=val.getAnimalImage())==null) return;
+						    g.drawImage(image,    //вот здесь с помощью getAnimalImage можно в зависимости от состояния объекта (гапример, он спит) ставить разные картинки
 									val.getXPosition(), 
 											val.getYPosition(),sizeOfCell,sizeOfCell, null);
 						}
