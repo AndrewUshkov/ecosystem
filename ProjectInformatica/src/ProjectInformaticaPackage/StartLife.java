@@ -71,6 +71,12 @@ class StartLife extends JFrame {
 			}
 			
 			
+			Information.checkIsLeoBorn();
+			
+			
+			
+			
+			
 			
 			try {
 				Thread.sleep(100);//чтобы успеть просмотреть

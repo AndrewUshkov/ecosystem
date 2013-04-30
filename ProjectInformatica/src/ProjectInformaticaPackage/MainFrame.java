@@ -16,6 +16,7 @@ import javax.swing.*;
 		public MainFrame(int DEFAULT_WIDTH, int DEFAULT_HEIGHT) {
 			setTitle("ProjectInformatica");
 			setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+			//setExtendedState(JFrame.MAXIMIZED_BOTH);
 			BioPanel lpanel=new BioPanel();
 			add(lpanel);
 		}
@@ -33,16 +34,8 @@ import javax.swing.*;
 						super.paintComponent(g);
 						int sizeOfCell=Information.getSizeOfCell();
 						
-						for (Iterator<Leo> current = Information.getLinkedListOfLeos().iterator(); current.hasNext(); ) {
-						    Leo val = current.next();
-						    Image image;
-						    if ((image=val.getAnimalImage())==null) return;
-						    g.drawImage(image,    //вот здесь с помощью getAnimalImage можно в зависимости от состояния объекта (гапример, он спит) ставить разные картинки
-									val.getXPosition(), 
-											val.getYPosition(),sizeOfCell,sizeOfCell, null);
-						}
 						
-						
+						g.drawImage(Information.getImageGround(),0,0,Information.getDefaultWeight(),Information.getDefaultHeight(),null);
 						for (Iterator<Grass> current = Information.getLinkedListOfGrass().iterator(); current.hasNext(); ) { //аналогично для травы
 						    Grass val = current.next();
 						    if (val.getGrassImage()==null) return;
@@ -50,6 +43,31 @@ import javax.swing.*;
 									val.getXPosition(), 
 											val.getYPosition(),sizeOfCell,sizeOfCell, null);
 						}
+						
+						
+						for (Iterator<Leo> current = Information.getLinkedListOfLeos().iterator(); current.hasNext(); ) {
+						    Leo val = current.next();
+						    Image image;
+						    if ((image=val.getAnimalImage())==null) return;
+						    
+						    
+						    if (val.isChild()) {
+						    
+						    		g.drawImage(image,    //вот здесь с помощью getAnimalImage можно в зависимости от состояния объекта (гапример, он спит) ставить разные картинки
+						    				val.getXPosition(), 
+													val.getYPosition(),sizeOfCell*(30-val.timeInChildhood)/30,sizeOfCell*(30-val.timeInChildhood)/30, null);
+						    } else
+						    	g.drawImage(image,    //вот здесь с помощью getAnimalImage можно в зависимости от состояния объекта (гапример, он спит) ставить разные картинки
+					    				val.getXPosition(), 
+												val.getYPosition(),sizeOfCell,sizeOfCell, null);
+						    
+						    
+						    
+						    
+						}
+						
+						
+						
 						
 						
 					
