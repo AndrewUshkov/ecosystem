@@ -55,7 +55,7 @@ class StartLife extends JFrame {
 			
 			
 			//здесь перебираем все объекты из коллекций животных и травы и у каждого вызываем метод makeDecision. Как бы предоставляем ход этому объекту.
-			for (Iterator<LifeForm> current = Information.getLinkedListOfLifeForms().iterator(); current.hasNext(); ) {
+			for (Iterator<Leo> current = Information.getLinkedListOfLeos().iterator(); current.hasNext(); ) {
 			    LifeForm currentAnimal = current.next();
 			    if (currentAnimal.makeDecision()==false) { //false появляется, если объект погибает
 			        current.remove();
