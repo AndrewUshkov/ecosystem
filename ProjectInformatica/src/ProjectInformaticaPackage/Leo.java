@@ -62,8 +62,7 @@ ArrayList<Leo> listOfLeos=Information.getListOfLeos();
 public Leo (/*MainFrame window, */boolean IfMale, int startXPosition, int startYPosition, float startAge, 
 						float startStarvation, float startPassion, float startExhaustion,
 								float startStarvationCoefficient, float startPassionCoefficient, float startExhaustionCoefficient,
-										float legacyStarvationCoefficient, float legacyPassionCoefficient, float legacyExhaustionCoefficient,
-										boolean isChild) {
+										float legacyStarvationCoefficient, float legacyPassionCoefficient, float legacyExhaustionCoefficient) {
 	this.male=IfMale;
 	this.xPosition=startXPosition;
 	this.yPosition=startYPosition;
@@ -232,7 +231,7 @@ private void feelHungry() {
 	
 }
 private void becomePregnant() {
-	this.timeOfPregnant=10;
+	this.timeOfPregnant=30;
 }
 private void tryMakeChildren(Leo female) {
 	if (female.femaleAgree()) {
@@ -255,13 +254,14 @@ private int feelPassion() {
 		for (Iterator<Leo> current = Information.getLinkedListOfLeos().iterator(); current.hasNext(); ) {
 			currentLeo=current.next();
 			if (    (nearestLeo==null)&&( ((this.isMale())^(currentLeo.isMale()))          )&&(!currentLeo.isChild())
+					&& (currentLeo.timeOfPregnant==-1)
 					) 
 			{
 				nearestLeo=currentLeo; 
 				nearestDistance=(nearestLeo.getXPosition()-this.xPosition)*(nearestLeo.getXPosition()-this.xPosition)+(nearestLeo.getYPosition()-this.yPosition)*(nearestLeo.getYPosition()-this.yPosition);
 					}
 			if ((nearestLeo!=null)&&(nearestLeo!=currentLeo)  &&
-					    ((this.isMale())^(currentLeo.isMale()))&&(!currentLeo.isChild())         ) {
+					    ((this.isMale())^(currentLeo.isMale()))&&(!currentLeo.isChild())&& (currentLeo.timeOfPregnant==-1)         ) {
 				currentDistance=(currentLeo.getXPosition()-this.xPosition)*(currentLeo.getXPosition()-this.xPosition)+(currentLeo.getYPosition()-this.yPosition)*(currentLeo.getYPosition()-this.yPosition);
 				if (currentDistance<nearestDistance) {nearestDistance=currentDistance; nearestLeo=currentLeo;}
 				
@@ -306,7 +306,7 @@ private void feelKillInstinct() {
 	
 }
 private void feelSleepy() {
-	this.exhaustion+=5*this.exhaustionCoefficient;
+	this.exhaustion+=2*this.exhaustionCoefficient;
 }
 private int getDecision() {
 	if (this.timeInChildhood==0) {

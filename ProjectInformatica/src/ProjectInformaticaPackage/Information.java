@@ -37,11 +37,11 @@ public class Information {                //этот класс занимается считыванием вс
 			linkedListOfLifeForms.add(k);
 		}*/
 		in.close();
-	
-		linkedListOfLeos.add(new Leo(true, 100, 200, 400, 150, 100, 100,     (float)1,1,3,   1,2,1,   false));
-		linkedListOfLeos.add(new Leo(false, 50, 400,  400, 160, 85,  20,    (float) 1,2,1,   3,2,1,    false));
-		linkedListOfLeos.add(new Leo(true, 500, 200,  400, 170, 20,  70,     (float)1,3,3,   3,2,1,    false));
-		linkedListOfLeos.add(new Leo(false, 200, 100,  400, 180, 90,  50,     (float)1,1,3,   1,1,1,   false));
+	                            //IfMale   X    Y    Age  starv pass exha        SC     PC      EC
+		linkedListOfLeos.add(new Leo(true, 100, 200, 400, 100, 100, 100,     (float)1,(float)0.5,2,   1,(float)0.2,1));
+		linkedListOfLeos.add(new Leo(false, 50, 400,  400, 60, 85,  20,      (float)1,(float)0.3,1,   3,(float)0.2,1));
+		linkedListOfLeos.add(new Leo(true, 500, 200,  400, 70, 20,  70,      (float)1,(float)0.3,3,   3,(float)0.2,1));
+		linkedListOfLeos.add(new Leo(false, 200, 100,  400, 80, 90,  50,     (float)1,(float)0.5,3,   1,(float)0.1,1));
 	
 	
 		/*Iterator<LifeForm> currentLifeForm = listOfLifeForms.iterator();   // проверка, что делает итератор
@@ -122,12 +122,11 @@ public class Information {                //этот класс занимается считыванием вс
 		    								100,
 		    								100,
 		    								(currentAnimal.getLegacyStarvationCoefficient()+currentAnimal.getFromWhom().getLegacyStarvationCoefficient())/2-2+rand.nextInt(5),
-		    								(currentAnimal.getLegacyPassionCoefficient()+currentAnimal.getFromWhom().getLegacyPassionCoefficient())/2-2+rand.nextInt(5),
+		    								(currentAnimal.getLegacyPassionCoefficient()+currentAnimal.getFromWhom().getLegacyPassionCoefficient())/2-(float)0.3+(float)rand.nextInt(7)/10,
 		    								(currentAnimal.getLegacyExhaustionCoefficient()+currentAnimal.getFromWhom().getLegacyExhaustionCoefficient())/2-2+rand.nextInt(5),
 		    								1+rand.nextInt(3),
-		    								1+rand.nextInt(3),
-		    								1+rand.nextInt(3),
-		    								true
+		    								-(float)0.3+(float)rand.nextInt(7)/10,
+		    								1+rand.nextInt(3)
 		    						));
 		    
 		    currentAnimal.setTimeOfPregnant(-1);
