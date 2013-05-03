@@ -26,6 +26,10 @@ public class Information {                //этот класс занимается считыванием вс
 	private static Image imageSleepingLeo;
 	private static Image imageUsualGround;
 	private static Image imageLeoChild;
+	private static Image imageLeoFemaleChild;
+	private static Image imageLeoFemale;
+	private static Image imagePassionLeo;
+	private static Image imageSleepingLeoFemale;
 	
 	public static void readPredatorsFromConsole(/*MainFrame frame*/) {    //понятно что делает. Пока что не реализован ввод данных  с клавиатуры
 		Scanner in=new Scanner(System.in);
@@ -40,8 +44,8 @@ public class Information {                //этот класс занимается считыванием вс
 	                            //IfMale   X    Y    Age  starv pass exha        SC     PC      EC
 		linkedListOfLeos.add(new Leo(true, 100, 200, 400, 100, 100, 100,     (float)1,(float)0.5,2,   1,(float)0.2,1));
 		linkedListOfLeos.add(new Leo(false, 50, 400,  400, 100, 85,  20,      (float)1,(float)0.3,1,   3,(float)0.2,1));
-		linkedListOfLeos.add(new Leo(true, 500, 200,  400, 100, 20,  70,      (float)1,(float)0.3,3,   3,(float)0.2,1));
-		linkedListOfLeos.add(new Leo(false, 200, 100,  400, 100, 90,  50,     (float)1,(float)0.5,3,   1,(float)0.1,1));
+		//linkedListOfLeos.add(new Leo(true, 500, 200,  400, 100, 20,  70,      (float)1,(float)0.3,3,   3,(float)0.2,1));
+		//linkedListOfLeos.add(new Leo(false, 200, 100,  400, 100, 90,  50,     (float)1,(float)0.5,3,   1,(float)0.1,1));
 	
 	
 		/*Iterator<LifeForm> currentLifeForm = listOfLifeForms.iterator();   // проверка, что делает итератор
@@ -80,6 +84,10 @@ public class Information {                //этот класс занимается считыванием вс
 	    	   imageYellowGrass=ImageIO.read(new File("Textures/YellowGrass.jpg"));
 	    	   imageUsualGround=ImageIO.read(new File("Textures/UsualGround.jpg"));
 	    	   imageLeoChild=ImageIO.read(new File("Textures/NewLeoChild.png"));
+	    	   imageLeoFemaleChild=ImageIO.read(new File("Textures/leoChildFemale.png"));
+	    	   imageLeoFemale=ImageIO.read(new File("Textures/LeoFemale.png"));
+	    	   imagePassionLeo=ImageIO.read(new File("Textures/PassionLeo.png"));
+	    	   imageSleepingLeoFemale=ImageIO.read(new File("Textures/SleepingLeoFemale.png"));
 	       		} 
 	       catch (IOException e) {System.out.println("Can't read file");}
 	       }
@@ -173,5 +181,17 @@ public static Image getImageGround() {
 }
 public static Image getImageLeoChild() {
 	return imageLeoChild;
+}
+public static Image getImageLeoFemaleChild() {
+	return imageLeoFemaleChild;
+}
+public static Image getImageLeoFemale() {
+	return imageLeoFemale;
+}
+public static Image getImagePassionLeo() {
+	return imagePassionLeo;
+}
+public static Image getImageSleepingLeoFemale() {
+	return imageSleepingLeoFemale;
 }
 }

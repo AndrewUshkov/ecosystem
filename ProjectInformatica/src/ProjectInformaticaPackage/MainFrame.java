@@ -15,7 +15,10 @@ import javax.swing.*;
 	class MainFrame extends JFrame {                                   
 		public MainFrame(int DEFAULT_WIDTH, int DEFAULT_HEIGHT) {
 			setTitle("ProjectInformatica");
+			//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 			setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+			//setSize(d.width,d.height);
+			//setExtendedState(JFrame.MAXIMIZED_BOTH);
 			//setExtendedState(JFrame.MAXIMIZED_BOTH);
 			BioPanel lpanel=new BioPanel();
 			add(lpanel);

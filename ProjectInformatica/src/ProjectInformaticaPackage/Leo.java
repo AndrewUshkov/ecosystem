@@ -143,9 +143,17 @@ public void setLegacyPassionCoefficient(float newLPCoef) {
 	legacyPassionCoefficient=newLPCoef;
 }
 public Image getAnimalImage() {
+	if (this.isMale()) {
 		if (this.previousAction==3) {return Information.getImageSleepingLeo();}
 		if (this.isChild) {return Information.getImageLeoChild();}
-			return Information.getImageLeo();
+		if (this.previousAction==7) {return Information.getImagePassionLeo();}
+		return Information.getImageLeo();
+	} else {
+		if (this.previousAction==3) {return Information.getImageSleepingLeoFemale();}
+		if (this.isChild) {return Information.getImageLeoFemaleChild();}
+		if (this.previousAction==7) {return Information.getImagePassionLeo();}
+		return Information.getImageLeoFemale();
+	}
 }
 public boolean femaleAgree() {
 	if ((passion<=50)&&(this.previousAction!=3)) return true; return false;
@@ -237,6 +245,12 @@ private void becomePregnant() {
 }
 private void tryMakeChildren(Leo female) {
 	if (female.femaleAgree()) {
+				this.setXPosition(female.getXPosition());
+				this.setYPosition(female.getYPosition());
+			    this.timeOfInertion=10;
+			    female.timeOfInertion=10;
+			    this.previousAction=7;
+			    female.previousAction=7;
 				this.passion=100;
 				female.setPassion(100);
 				this.badFemale=null;
@@ -246,7 +260,6 @@ private void tryMakeChildren(Leo female) {
 				System.out.println("Pregnant");
 				} else {
 					this.badFemale=female;
-					//feelPassion(female);
 				}
 				
 	
@@ -323,7 +336,10 @@ private int getDecision() {
 			if (this.isChild) this.isChild=false;
 			this.age-=0.5;                                              //установка новых значений полей
 			this.starvation-=this.starvationCoefficient;
-			if (passion>20) {this.passion-=this.passionCoefficient;}  
+			
+			if (passion>20) {this.passion-=this.passionCoefficient;}
+			if (passion<=20) this.badFemale=null;
+			
 			this.exhaustion-=this.exhaustionCoefficient;
 			if (this.timeOfPregnant>0) this.timeOfPregnant--;
 	
@@ -343,7 +359,10 @@ private int getDecision() {
 			if (!this.isChild) {
 					this.age-=0.5;                                              //установка новых значений полей
 					this.starvation-=this.starvationCoefficient;
+					
 					if (passion>20) {this.passion-=this.passionCoefficient;}  
+					if (passion<=20) this.badFemale=null;
+					
 					this.exhaustion-=this.exhaustionCoefficient;
 					if (this.timeOfPregnant>0) this.timeOfPregnant--;
 			
@@ -401,6 +420,8 @@ public boolean makeDecision() {
 			break;
 			case 4:
 				this.feelKillInstinct();
+			break;
+			case 7:
 			break;
 			}
 			}
