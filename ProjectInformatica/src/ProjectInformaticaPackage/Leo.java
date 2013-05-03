@@ -148,7 +148,7 @@ public Image getAnimalImage() {
 			return Information.getImageLeo();
 }
 public boolean femaleAgree() {
-	if (passion<=50) return true; return false;
+	if ((passion<=50)&&(this.previousAction!=3)) return true; return false;
 }
 public CoordinatesXY goToNearestPredator() {
 	CoordinatesXY Coords=new CoordinatesXY();
