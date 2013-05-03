@@ -39,9 +39,9 @@ public class Information {                //этот класс занимается считыванием вс
 		in.close();
 	                            //IfMale   X    Y    Age  starv pass exha        SC     PC      EC
 		linkedListOfLeos.add(new Leo(true, 100, 200, 400, 100, 100, 100,     (float)1,(float)0.5,2,   1,(float)0.2,1));
-		linkedListOfLeos.add(new Leo(false, 50, 400,  400, 60, 85,  20,      (float)1,(float)0.3,1,   3,(float)0.2,1));
-		linkedListOfLeos.add(new Leo(true, 500, 200,  400, 70, 20,  70,      (float)1,(float)0.3,3,   3,(float)0.2,1));
-		linkedListOfLeos.add(new Leo(false, 200, 100,  400, 80, 90,  50,     (float)1,(float)0.5,3,   1,(float)0.1,1));
+		linkedListOfLeos.add(new Leo(false, 50, 400,  400, 100, 85,  20,      (float)1,(float)0.3,1,   3,(float)0.2,1));
+		linkedListOfLeos.add(new Leo(true, 500, 200,  400, 100, 20,  70,      (float)1,(float)0.3,3,   3,(float)0.2,1));
+		linkedListOfLeos.add(new Leo(false, 200, 100,  400, 100, 90,  50,     (float)1,(float)0.5,3,   1,(float)0.1,1));
 	
 	
 		/*Iterator<LifeForm> currentLifeForm = listOfLifeForms.iterator();   // проверка, что делает итератор

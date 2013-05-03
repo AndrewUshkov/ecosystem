@@ -34,7 +34,9 @@ private boolean wantToBorn=false;
 private Leo fromWhom=null;
 //ArrayList <LeoWish> leoNeeds;
 private boolean isChild=true;
-public int timeInChildhood= this.isChild ? 30:0;
+private char previousAction=0;
+private Leo badFemale=null;                                        //самка, несогласная на спаривание
+public int timeOfInertion= this.isChild ? 30:0;
 public float getExhaustion() {
 	return exhaustion;
 }
@@ -141,8 +143,8 @@ public void setLegacyPassionCoefficient(float newLPCoef) {
 	legacyPassionCoefficient=newLPCoef;
 }
 public Image getAnimalImage() {
-		if (decision==3) {return Information.getImageSleepingLeo();}
-		if (decision==6) {return Information.getImageLeoChild();}
+		if (this.previousAction==3) {return Information.getImageSleepingLeo();}
+		if (this.isChild) {return Information.getImageLeoChild();}
 			return Information.getImageLeo();
 }
 public boolean femaleAgree() {
@@ -237,14 +239,20 @@ private void tryMakeChildren(Leo female) {
 	if (female.femaleAgree()) {
 				this.passion=100;
 				female.setPassion(100);
+				this.badFemale=null;
 				//Information.getLinkedListOfLeos().add(new Leo(true, this.getXPosition(), this.getYPosition(), 400, 50, 100, 100,     (float)1,1,3,   0,0,0));
 				female.setFromWhom(this);
 				female.becomePregnant();
 				System.out.println("Pregnant");
+				} else {
+					this.badFemale=female;
+					//feelPassion(female);
 				}
+				
 	
 }
-private int feelPassion() {
+private int feelPassion(Leo badFemale) {
+if (this.isMale()) {
 	if (!Information.getLinkedListOfLeos().isEmpty()) {
 		//LifeForm nearestLeo=Information.getLinkedListOfLifeForms().getFirst();
 		Leo nearestLeo=null;
@@ -253,15 +261,16 @@ private int feelPassion() {
 		int nearestDistance=-1;
 		for (Iterator<Leo> current = Information.getLinkedListOfLeos().iterator(); current.hasNext(); ) {
 			currentLeo=current.next();
-			if (    (nearestLeo==null)&&( ((this.isMale())^(currentLeo.isMale()))          )&&(!currentLeo.isChild())
+			if (    (nearestLeo==null)&&( ((!currentLeo.isMale()))          )&&(!currentLeo.isChild())
 					&& (currentLeo.timeOfPregnant==-1)
+								&& (!currentLeo.equals(badFemale))
 					) 
 			{
 				nearestLeo=currentLeo; 
 				nearestDistance=(nearestLeo.getXPosition()-this.xPosition)*(nearestLeo.getXPosition()-this.xPosition)+(nearestLeo.getYPosition()-this.yPosition)*(nearestLeo.getYPosition()-this.yPosition);
 					}
 			if ((nearestLeo!=null)&&(nearestLeo!=currentLeo)  &&
-					    ((this.isMale())^(currentLeo.isMale()))&&(!currentLeo.isChild())&& (currentLeo.timeOfPregnant==-1)         ) {
+					    ((!currentLeo.isMale()))&&(!currentLeo.isChild())&& (currentLeo.timeOfPregnant==-1)         ) {
 				currentDistance=(currentLeo.getXPosition()-this.xPosition)*(currentLeo.getXPosition()-this.xPosition)+(currentLeo.getYPosition()-this.yPosition)*(currentLeo.getYPosition()-this.yPosition);
 				if (currentDistance<nearestDistance) {nearestDistance=currentDistance; nearestLeo=currentLeo;}
 				
@@ -294,6 +303,7 @@ private int feelPassion() {
 		//if (nearestDistance<=Information.getSizeOfCell()) {this.starvation+=nearestGrass.getEnergyValue();}
 		}*/
 		} else return -1;
+} else return 0;
 }
 
 private void bornNewLeo() {
@@ -309,13 +319,13 @@ private void feelSleepy() {
 	this.exhaustion+=2*this.exhaustionCoefficient;
 }
 private int getDecision() {
-	if (this.timeInChildhood==0) {
-			this.isChild=false;
+	if (this.timeOfInertion==0) {
+			if (this.isChild) this.isChild=false;
 			this.age-=0.5;                                              //установка новых значений полей
 			this.starvation-=this.starvationCoefficient;
 			if (passion>20) {this.passion-=this.passionCoefficient;}  
 			this.exhaustion-=this.exhaustionCoefficient;
-			if (this.timeOfPregnant!=-1) this.timeOfPregnant--;
+			if (this.timeOfPregnant>0) this.timeOfPregnant--;
 	
 	
 	
@@ -324,13 +334,31 @@ private int getDecision() {
 	if (this.exhaustion<=0) return 3;
 	
 	if (this.timeOfPregnant==0) {return 5;}
-	if ((this.starvation<=this.exhaustion)&&(this.starvation<=this.passion)) return 1;
-	if ((this.starvation>=this.passion)&&(this.passion<=this.exhaustion)) return 2;
-	if ((this.starvation>=this.exhaustion)&&(this.exhaustion<=this.passion)) return 3;
+	if ((this.starvation<=this.exhaustion)&&(this.starvation<=this.passion)) {this.previousAction=1; this.timeOfInertion=10; return 1;}
+	if ((this.starvation>=this.passion)&&(this.passion<=this.exhaustion)) {this.previousAction=2; this.timeOfInertion=5; return 2;}
+	if ((this.starvation>=this.exhaustion)&&(this.exhaustion<=this.passion)) {this.previousAction=3; this.timeOfInertion=20; return 3;}
 	return 3;
-	} else 
-		this.timeInChildhood--;
-	return 6;
+	} else {
+			this.timeOfInertion--;
+			if (!this.isChild) {
+					this.age-=0.5;                                              //установка новых значений полей
+					this.starvation-=this.starvationCoefficient;
+					if (passion>20) {this.passion-=this.passionCoefficient;}  
+					this.exhaustion-=this.exhaustionCoefficient;
+					if (this.timeOfPregnant>0) this.timeOfPregnant--;
+			
+					if (this.age<=0) {System.out.println("Age"); return 0;}
+					if (this.starvation<=0) {System.out.println("Starvation"); return 0;}
+					if (this.exhaustion<=0) {this.timeOfInertion=0; return 3;}
+					
+			if (this.timeOfPregnant==0) {this.timeOfInertion=0; return 5;}
+			
+			
+			
+			
+			}
+			return 6;
+	}
 	/*int length=this.leoNeeds.length;
 	Arrays.sort(this.leoNeeds);*/
 	
@@ -352,11 +380,31 @@ public boolean makeDecision() {
 	decision=this.getDecision();
 	if (decision==0) {return false;}
 	if (decision==1) {System.out.println("Hungry "+this.starvation+" "+this.exhaustion+" "+this.passion); this./*feelHungry();*/goToNearestGrass();}
-	if (decision==2) {System.out.println("Passion "+this.starvation+" "+this.exhaustion+" "+this.passion); if (this.feelPassion()==-1) {}}
+	if (decision==2) {System.out.println("Passion "+this.starvation+" "+this.exhaustion+" "+this.passion); if (this.feelPassion(this.badFemale)==-1) {}}
 	if (decision==4) {this.feelKillInstinct();}
 	if (decision==3) {System.out.println("Sleep "+this.starvation+" "+this.exhaustion+" "+this.passion); this.feelSleepy();}
 	if (decision==5) {System.out.println("Want to born"); this.bornNewLeo();}
-	if (decision==6) {System.out.println("In childhood");}
+	if (decision==6) {
+			System.out.println("Previous action"); 
+			switch (this.previousAction) {
+			case 0:
+				System.out.println("Childhood");
+			break;
+			case 1:
+				System.out.println("Hungry "+this.starvation+" "+this.exhaustion+" "+this.passion); this./*feelHungry();*/goToNearestGrass();
+			break;
+			case 2:
+				System.out.println("Passion "+this.starvation+" "+this.exhaustion+" "+this.passion); if (this.feelPassion(this.badFemale)==-1) {}
+			break;
+			case 3:
+				System.out.println("Sleep "+this.starvation+" "+this.exhaustion+" "+this.passion); this.feelSleepy();
+			break;
+			case 4:
+				this.feelKillInstinct();
+			break;
+			}
+			}
+	
 	return true;
 }
 }

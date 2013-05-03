@@ -55,7 +55,7 @@ import javax.swing.*;
 						    
 						    		g.drawImage(image,    //вот здесь с помощью getAnimalImage можно в зависимости от состояния объекта (гапример, он спит) ставить разные картинки
 						    				val.getXPosition(), 
-													val.getYPosition(),sizeOfCell*(30-val.timeInChildhood)/30,sizeOfCell*(30-val.timeInChildhood)/30, null);
+													val.getYPosition(),sizeOfCell*(30-val.timeOfInertion)/30,sizeOfCell*(30-val.timeOfInertion)/30, null);
 						    } else
 						    	g.drawImage(image,    //вот здесь с помощью getAnimalImage можно в зависимости от состояния объекта (гапример, он спит) ставить разные картинки
 					    				val.getXPosition(), 
