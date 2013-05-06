@@ -20,6 +20,8 @@ public class Information {                //этот класс занимается считыванием вс
 	private static int sizeOfCell;   //размер картинок, отображаемых на экране
 	private static int defaultWeight;     //это два размера главного окга программы
 	private static int defaultHeight;
+	private static int quantTime=100;
+	public static boolean letGo=false;          //нужна для синхронизации процессов
 	private static Image imageGreenGrass;   //а это все картинки, используемые в программе (пока их 4 штуки)
 	private static Image imageYellowGrass;
 	private static Image imageLeo;
@@ -32,7 +34,7 @@ public class Information {                //этот класс занимается считыванием вс
 	private static Image imageSleepingLeoFemale;
 	
 	public static void readPredatorsFromConsole(/*MainFrame frame*/) {    //понятно что делает. Пока что не реализован ввод данных  с клавиатуры
-		Scanner in=new Scanner(System.in);
+		//Scanner in=new Scanner(System.in);
 		
 		/*for (int i=0;i<amountPredator;i++) {
 			System.out.println((i+1)+"-ые координаты:");
@@ -40,12 +42,12 @@ public class Information {                //этот класс занимается считыванием вс
 			listOfLifeForms.add(k);
 			linkedListOfLifeForms.add(k);
 		}*/
-		in.close();
+		//in.close();
 	                            //IfMale   X    Y    Age  starv pass exha        SC     PC      EC
 		linkedListOfLeos.add(new Leo(true, 100, 200, 400, 100, 100, 100,     (float)1,(float)0.5,2,   1,(float)0.2,1));
 		linkedListOfLeos.add(new Leo(false, 50, 400,  400, 100, 85,  20,      (float)1,(float)0.3,1,   3,(float)0.2,1));
-		//linkedListOfLeos.add(new Leo(true, 500, 200,  400, 100, 20,  70,      (float)1,(float)0.3,3,   3,(float)0.2,1));
-		//linkedListOfLeos.add(new Leo(false, 200, 100,  400, 100, 90,  50,     (float)1,(float)0.5,3,   1,(float)0.1,1));
+		linkedListOfLeos.add(new Leo(true, 500, 200,  400, 100, 20,  70,      (float)1,(float)0.3,3,   3,(float)0.2,1));
+		linkedListOfLeos.add(new Leo(false, 200, 100,  400, 100, 90,  50,     (float)1,(float)0.5,3,   1,(float)0.1,1));
 	
 	
 		/*Iterator<LifeForm> currentLifeForm = listOfLifeForms.iterator();   // проверка, что делает итератор
@@ -193,5 +195,12 @@ public static Image getImagePassionLeo() {
 }
 public static Image getImageSleepingLeoFemale() {
 	return imageSleepingLeoFemale;
+}
+
+public static int getQuantTime() {
+		return quantTime;
+}
+public static void setQuantTime(int newQuantTime) {
+	quantTime=newQuantTime;
 }
 }

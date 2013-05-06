@@ -1,16 +1,27 @@
 package ProjectInformaticaPackage;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 class StartLife extends JFrame {
 	public static void main(String[] args) {    //здесь начинает работать программа
 		//int amountPredator=4;
 		//int amountHerbivore;
 		//ArrayList<LifeForm> listOfLifeForms=new ArrayList<LifeForm>();
+		int quantTime;
+		int numberAnimalsInThread=2;
+		int numberOfThreads;
+		Leo a;
+		Leo b;
+		Thread currentPredatorThread;
 		Information.readPredatorsFromConsole(/*this*/);  //много статических методов считывания информации
 		Information.readGrassFromConsole();
 		Information.readSizeOfCellFromConsole();
@@ -19,72 +30,91 @@ class StartLife extends JFrame {
 		Information.loadImages();
 		MainFrame frame=new MainFrame(Information.getDefaultWeight(), Information.getDefaultHeight()); //создаем главное окно
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		JMenuBar menuBar=new JMenuBar();
+		frame.setJMenuBar(menuBar);
+		JMenu menuNewWorld=new JMenu("Новый мир");
+		JMenu menuActions=new JMenu("Действия");
+		JMenu menuGraphs=new JMenu("Графики");
+		menuBar.add(menuNewWorld);
+		menuBar.add(menuActions);
+		menuBar.add(menuGraphs);
+		JMenuItem stopItem=new JMenuItem("Остановить");
+		JMenuItem pauseItem=new JMenuItem("Пауза");
+		JMenuItem renewalItem=new JMenuItem("Возобновить");
+		menuActions.add(stopItem);
+		menuActions.add(pauseItem);
+		menuActions.add(renewalItem);
+		PauseAction pause= new PauseAction(0);
+		PauseAction renewal=new PauseAction(100);
+		pauseItem.addActionListener(pause);
+		renewalItem.addActionListener(renewal);
+		
+		
+		
 		frame.setVisible(true);
 		
 		
-		/*LifeForm CurrentLifeForm=listOfLifeForms.get(0);
-		CurrentLifeForm.setXPosition(0);
-		 		try {
-		 				Thread.sleep(1000);//чтобы успеть просмотреть
-		 			} catch (Exception e) {
-		 				}
-		CurrentLifeForm.setXPosition(300);
-		frame.repaint();*/                 //здесь разобрался, как перерисовывать картинку
 		
 		
 		
-		
-		/*do {
-		for (int i=0;i<Information.getAmountPredator();i++) {
-			listOfLifeForms.get(i).goToNearestPredator();
-		}
-		*/
-		
+		PredatorThread predatorThread=new PredatorThread();
+		HerbivoreThread herbivoreThread=new HerbivoreThread();
+		GrassThread grassThread=new GrassThread();
 		
 		do {
 			
+		quantTime=Information.getQuantTime();
+		if (quantTime>0) {
 			
-			
-		/*Iterator<LifeForm> current = Information.getLinkedListOfLifeForms().iterator();
-		while (current.hasNext()) {/*current.next().goToNearestPredator();*/
-			//currentLeo=current.next();
-			//isAlive=current.next().makeDecision(); 
-			/*if (current.next().makeDecision()==false) {
-			Information.getLinkedListOfLifeForms().remove();}}*/
-			
-			
-			
-			//здесь перебираем все объекты из коллекций животных и травы и у каждого вызываем метод makeDecision. Как бы предоставляем ход этому объекту.
-			for (Iterator<Leo> current = Information.getLinkedListOfLeos().iterator(); current.hasNext(); ) {
-			    LifeForm currentAnimal = current.next();
-			    if (currentAnimal.makeDecision()==false) { //false появляется, если объект погибает
-			        current.remove();
-			    }
-			}
-			
-			//аналогично для травы
-			for (Iterator<Grass> current = Information.getLinkedListOfGrass().iterator(); current.hasNext(); ) {
-			    Grass currentGrass = current.next();
-			    if (currentGrass.makeDecision()==false) {
-			        current.remove();
-			    }
-			}
-			
-			
-			Information.checkIsLeoBorn();
-			
-			
-			
-			
-			
+			predatorThread.run();
+			herbivoreThread.run();
+			grassThread.run();
 			
 			try {
-				Thread.sleep(100);//чтобы успеть просмотреть
-			} catch (Exception e) {}
-		frame.repaint();
+				Thread.sleep(quantTime);/*чтобы успеть просмотреть*/ 
+				} catch (Exception e) {}
+			frame.repaint();
+		}	
+		} while (true);
 		
 		
-	} while (true);
 		
+		
+		/*numberOfThreads=(Information.getLinkedListOfLeos().size()+1)/numberAnimalsInThread;  //в каждом треде максимум 2 хищника, минимум: 1
+		ArrayList<Thread> threads=new ArrayList<Thread>();
+		
+		for (int i=1;i<=numberOfThreads;i++) {
+			a=Information.getLinkedListOfLeos().get(2*(i-1));
+			if (Information.getLinkedListOfLeos().size()>=2*(i-1)+2) b=Information.getLinkedListOfLeos().get(2*(i-1)+1); else b=null;
+			threads.add(new Thread(new PredatorThread(a,b), String.valueOf(i)));
+		}
+		
+		
+		do {
+		for (Iterator<Thread> currentThread = threads.iterator(); currentThread.hasNext(); ) {
+		    currentThread.next().run();
+		}
+		
+		try {
+			quantTime=Information.getQuantTime();
+			if (quantTime>0) {Thread.sleep(quantTime);/*чтобы успеть просмотреть*/ //frame.repaint();}
+			/*else {}
+		
+	} catch (Exception e) {}
+			
+		} while (true);*/
+		
+	}
+}
+class PauseAction implements ActionListener {
+	int time;
+	public PauseAction(int quantTime) {
+		time=quantTime;
+	}
+	public void actionPerformed(ActionEvent event) {
+		if (time==0) {}
+		Information.setQuantTime(time);
 	}
 }

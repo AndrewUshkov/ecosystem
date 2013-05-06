@@ -37,6 +37,7 @@ private boolean isChild=true;
 private char previousAction=0;
 private Leo badFemale=null;                                        //самка, несогласная на спаривание
 public int timeOfInertion= this.isChild ? 30:0;
+private boolean hasNoThread=true;
 public float getExhaustion() {
 	return exhaustion;
 }
@@ -427,5 +428,11 @@ public boolean makeDecision() {
 			}
 	
 	return true;
+}
+public boolean hasNoThread() {
+	return this.hasNoThread;
+}
+public void hasThread() {
+	this.hasNoThread=false;
 }
 }

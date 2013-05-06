@@ -17,6 +17,9 @@ import javax.swing.*;
 			setTitle("ProjectInformatica");
 			//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 			setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+			
+			
+					
 			//setSize(d.width,d.height);
 			//setExtendedState(JFrame.MAXIMIZED_BOTH);
 			//setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -26,6 +29,9 @@ import javax.swing.*;
 		//private LinkedList<LifeForm> getListOfLifeForms() {
 		//}
 	}
+	
+	
+	
 	class BioPanel extends JPanel {
 		//private Image image;
 		public BioPanel() {
