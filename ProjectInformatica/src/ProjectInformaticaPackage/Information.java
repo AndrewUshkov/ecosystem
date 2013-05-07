@@ -3,6 +3,7 @@ package ProjectInformaticaPackage;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.AbstractSequentialList;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -18,6 +19,7 @@ public class Information {                //этот класс занимается считыванием вс
 	private static LinkedList<Leo> linkedListOfLeos=new LinkedList<Leo>();  //ведь скорость перебора всех элементов выше именнно в ссылочных linked коллекциях
 	private static LinkedList<Grass> linkedListOfGrass=new LinkedList<Grass>();  //аналогично эта linked коллекция содержит все объекты травы
 	private static LinkedList<Leo> linkedListOfBornedLeos=new LinkedList<Leo>();
+	private static LinkedList<Herbivore> linkedListOfBornedHerbivores=new LinkedList<Herbivore>();
 	private static LinkedList<Herbivore> linkedListOfHerbivores=new LinkedList<Herbivore>();
 	private static int sizeOfCell;   //размер картинок, отображаемых на экране
 	private static int defaultWeight;     //это два размера главного окга программы
@@ -77,6 +79,15 @@ public class Information {                //этот класс занимается считыванием вс
 		}*/
 	}
 	
+	
+	public static void readHerbivoreFromConsole() {
+		linkedListOfHerbivores.add(new Herbivore(true, 200, 100, 400, 100, 100, 100,     (float)1,(float)0.5,2,   1,(float)0.2,1));
+		linkedListOfHerbivores.add(new Herbivore(false, 150, 300,  400, 100, 85,  20,      (float)1,(float)0.3,1,   3,(float)0.2,1));
+		linkedListOfHerbivores.add(new Herbivore(true, 400, 300,  400, 100, 20,  70,      (float)1,(float)0.3,3,   3,(float)0.2,1));
+		linkedListOfHerbivores.add(new Herbivore(false, 300, 200,  400, 100, 90,  50,     (float)1,(float)0.5,3,   1,(float)0.1,1));
+	}
+	
+	
 	public static void readGrassFromConsole() {    //аналогично предыдущему методу пока еще не реализован
 		linkedListOfGrass.add(new Grass(50,30,120));
 		linkedListOfGrass.add(new Grass(90,10,150));
@@ -104,13 +115,13 @@ public class Information {                //этот класс занимается считыванием вс
 	    	   imageSleepingLeoFemale=ImageIO.read(new File("Textures/SleepingLeoFemale.png"));
 	    	   
 	    	   //Для травоядных
-	    	   imageHerbivore=ImageIO.read(new File("Textures/leo.png"));
-	    	   imageSleepingHerbivore=ImageIO.read(new File("Textures/sleeping_leo.png"));
-	    	   imageHerbivoreChild=ImageIO.read(new File("Textures/NewLeoChild.png"));
-	    	   imageHerbivoreFemaleChild=ImageIO.read(new File("Textures/leoChildFemale.png"));
-	    	   imageHerbivoreFemale=ImageIO.read(new File("Textures/LeoFemale.png"));
-	    	   imagePassionHerbivore=ImageIO.read(new File("Textures/PassionLeo.png"));
-	    	   imageSleepingHerbivoreFemale=ImageIO.read(new File("Textures/SleepingLeoFemale.png"));
+	    	   imageHerbivore=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imageSleepingHerbivore=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imageHerbivoreChild=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imageHerbivoreFemaleChild=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imageHerbivoreFemale=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imagePassionHerbivore=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imageSleepingHerbivoreFemale=ImageIO.read(new File("Textures/Herbivore.jpg"));
 	       		} 
 	       catch (IOException e) {System.out.println("Can't read file");}
 	       }
@@ -268,5 +279,34 @@ public static Image getImageSleepingHerbivoreFemale() {
 	return imageSleepingHerbivoreFemale;
 }
 
+
+public static void checkIsHerbivoreBorn() {
+	for (Iterator<Herbivore> current = linkedListOfHerbivores.iterator(); current.hasNext(); ) {
+	    Herbivore currentAnimal = current.next();
+	    Random rand = new Random();
+	    if (currentAnimal.wantToBorn()) {linkedListOfBornedHerbivores.add(
+	    						new Herbivore( rand.nextBoolean(),
+	    								currentAnimal.getXPosition(),
+	    								currentAnimal.getYPosition(),
+	    								60+rand.nextInt(41),
+	    								100,
+	    								100,
+	    								100,
+	    								(currentAnimal.getLegacyStarvationCoefficient()+currentAnimal.getFromWhom().getLegacyStarvationCoefficient())/2-2+rand.nextInt(5),
+	    								(currentAnimal.getLegacyPassionCoefficient()+currentAnimal.getFromWhom().getLegacyPassionCoefficient())/2-(float)0.3+(float)rand.nextInt(7)/10,
+	    								(currentAnimal.getLegacyExhaustionCoefficient()+currentAnimal.getFromWhom().getLegacyExhaustionCoefficient())/2-2+rand.nextInt(5),
+	    								1+rand.nextInt(3),
+	    								-(float)0.3+(float)rand.nextInt(7)/10,
+	    								1+rand.nextInt(3)
+	    						));
+	    
+	    currentAnimal.setTimeOfPregnant(-1);
+	    currentAnimal.setFromWhom(null);
+	    currentAnimal.setWantToBorn(false);
+	    
+	    						}
+	    
+	}
+}
 
 }
