@@ -14,9 +14,11 @@ import javax.imageio.ImageIO;
 public class Information {                //этот класс занимается считыванием всех данных с консоли или компьютера (например, картинок для значков)
 	private static int amountPredator=4;
 	private static ArrayList<Leo> listOfLeos=new ArrayList<Leo>();    //здесь я написал коллекции животных индексные и ссылочные, но в данный момент во всей программе используются только ссылочные коллекции
+	private static ArrayList<Herbivore> listOfHerbivores=new ArrayList<Herbivore>();
 	private static LinkedList<Leo> linkedListOfLeos=new LinkedList<Leo>();  //ведь скорость перебора всех элементов выше именнно в ссылочных linked коллекциях
 	private static LinkedList<Grass> linkedListOfGrass=new LinkedList<Grass>();  //аналогично эта linked коллекция содержит все объекты травы
 	private static LinkedList<Leo> linkedListOfBornedLeos=new LinkedList<Leo>();
+	private static LinkedList<Herbivore> linkedListOfHerbivores=new LinkedList<Herbivore>();
 	private static int sizeOfCell;   //размер картинок, отображаемых на экране
 	private static int defaultWeight;     //это два размера главного окга программы
 	private static int defaultHeight;
@@ -32,6 +34,16 @@ public class Information {                //этот класс занимается считыванием вс
 	private static Image imageLeoFemale;
 	private static Image imagePassionLeo;
 	private static Image imageSleepingLeoFemale;
+	
+	private static Image imageSleepingHerbivore;
+	private static Image imageSleepingHerbivoreFemale;
+	private static Image imageHerbivore;
+	private static Image imageHerbivoreChild;
+	private static Image imageHerbivoreFemaleChild;
+	private static Image imageHerbivoreFemale;
+	private static Image imagePassionHerbivore;
+
+	
 	
 	public static void readPredatorsFromConsole(/*MainFrame frame*/) {    //понятно что делает. Пока что не реализован ввод данных  с клавиатуры
 		//Scanner in=new Scanner(System.in);
@@ -90,6 +102,15 @@ public class Information {                //этот класс занимается считыванием вс
 	    	   imageLeoFemale=ImageIO.read(new File("Textures/LeoFemale.png"));
 	    	   imagePassionLeo=ImageIO.read(new File("Textures/PassionLeo.png"));
 	    	   imageSleepingLeoFemale=ImageIO.read(new File("Textures/SleepingLeoFemale.png"));
+	    	   
+	    	   //Для травоядных
+	    	   imageHerbivore=ImageIO.read(new File("Textures/leo.png"));
+	    	   imageSleepingHerbivore=ImageIO.read(new File("Textures/sleeping_leo.png"));
+	    	   imageHerbivoreChild=ImageIO.read(new File("Textures/NewLeoChild.png"));
+	    	   imageHerbivoreFemaleChild=ImageIO.read(new File("Textures/leoChildFemale.png"));
+	    	   imageHerbivoreFemale=ImageIO.read(new File("Textures/LeoFemale.png"));
+	    	   imagePassionHerbivore=ImageIO.read(new File("Textures/PassionLeo.png"));
+	    	   imageSleepingHerbivoreFemale=ImageIO.read(new File("Textures/SleepingLeoFemale.png"));
 	       		} 
 	       catch (IOException e) {System.out.println("Can't read file");}
 	       }
@@ -203,4 +224,49 @@ public static int getQuantTime() {
 public static void setQuantTime(int newQuantTime) {
 	quantTime=newQuantTime;
 }
+
+//Травоядные
+
+public static ArrayList<Herbivore> getListOfHerbivores() {
+	return listOfHerbivores;
+	
+}
+
+public static LinkedList<Herbivore> getLinkedListOfHerbivores() {
+	return linkedListOfHerbivores;
+}
+
+public static Image getImageHerbivoreFemale() {
+	return imageSleepingHerbivoreFemale;
+}
+
+public static Image getImageHerbivore() {
+	return imageHerbivore;
+}
+
+public static Image getImageSleepingHerbivore() {
+	return imageSleepingHerbivore;
+}
+
+public static Image getImageHerbivoreChild() {
+	return imageHerbivoreChild;
+}
+
+public static Image getImageHerbivoreFemaleChild() {
+	return imageHerbivoreFemaleChild;
+}
+
+public static Image getImageHerbivoreFemale1() {
+	return imageHerbivoreFemale;
+}
+
+public static Image getImagePassionHerbivore() {
+	return imagePassionHerbivore;
+}
+
+public static Image getImageSleepingHerbivoreFemale() {
+	return imageSleepingHerbivoreFemale;
+}
+
+
 }
