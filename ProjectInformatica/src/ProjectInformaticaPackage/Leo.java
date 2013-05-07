@@ -332,7 +332,7 @@ private void feelKillInstinct() {
 private void feelSleepy() {
 	this.exhaustion+=2*this.exhaustionCoefficient;
 }
-private int getDecision() {
+private int getDecision() {        // здесь происходит сравнивание всех шкал и определение, что делать дальше
 	if (this.timeOfInertion==0) {
 			if (this.isChild) this.isChild=false;
 			this.age-=0.5;                                              //установка новых значений полей
@@ -356,7 +356,7 @@ private int getDecision() {
 	if ((this.starvation>=this.exhaustion)&&(this.exhaustion<=this.passion)) {this.previousAction=3; this.timeOfInertion=20; return 3;}
 	return 3;
 	} else {
-			this.timeOfInertion--;
+			this.timeOfInertion--;  //время инерции- это чтобы например львы спали не до того как другая шкала станет меньше шкалы exhaustion, а хотя бы спали некоторое минимальное число ходов
 			if (!this.isChild) {
 					this.age-=0.5;                                              //установка новых значений полей
 					this.starvation-=this.starvationCoefficient;
@@ -429,10 +429,10 @@ public boolean makeDecision() {
 	
 	return true;
 }
-public boolean hasNoThread() {
+/*public boolean hasNoThread() {  // сейчас не используется
 	return this.hasNoThread;
-}
-public void hasThread() {
+}*/
+/*public void hasThread() {       //сейчас не используется
 	this.hasNoThread=false;
-}
+}*/
 }

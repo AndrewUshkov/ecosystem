@@ -1,6 +1,6 @@
 package ProjectInformaticaPackage;
 
-public class LeoWish implements Comparable<LeoWish>{
+public class LeoWish implements Comparable<LeoWish>{    //сейчас этот класс не используется
 	private int numberOfLeoNeed;
 	private float valueOfWish;
 	

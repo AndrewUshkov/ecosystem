@@ -22,6 +22,7 @@ class StartLife extends JFrame {
 		Leo a;
 		Leo b;
 		Thread currentPredatorThread;
+		
 		Information.readPredatorsFromConsole(/*this*/);  //много статических методов считывания информации
 		Information.readGrassFromConsole();
 		Information.readSizeOfCellFromConsole();
@@ -68,7 +69,7 @@ class StartLife extends JFrame {
 		quantTime=Information.getQuantTime();
 		if (quantTime>0) {
 			
-			predatorThread.run();
+			predatorThread.run();      //эти три потока- для животных и травы
 			herbivoreThread.run();
 			grassThread.run();
 			
