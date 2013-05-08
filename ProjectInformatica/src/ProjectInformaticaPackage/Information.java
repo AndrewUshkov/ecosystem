@@ -115,13 +115,13 @@ public class Information {                //этот класс занимаетс€ считыванием вс
 	    	   imageSleepingLeoFemale=ImageIO.read(new File("Textures/SleepingLeoFemale.png"));
 	    	   
 	    	   //ƒл€ траво€дных
-	    	   imageHerbivore=ImageIO.read(new File("Textures/Herbivore.jpg"));
-	    	   imageSleepingHerbivore=ImageIO.read(new File("Textures/Herbivore.jpg"));
-	    	   imageHerbivoreChild=ImageIO.read(new File("Textures/Herbivore.jpg"));
-	    	   imageHerbivoreFemaleChild=ImageIO.read(new File("Textures/Herbivore.jpg"));
-	    	   imageHerbivoreFemale=ImageIO.read(new File("Textures/Herbivore.jpg"));
-	    	   imagePassionHerbivore=ImageIO.read(new File("Textures/Herbivore.jpg"));
-	    	   imageSleepingHerbivoreFemale=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imageHerbivore=ImageIO.read(new File("Textures/DonaldDuck.png"));
+	    	   imageSleepingHerbivore=ImageIO.read(new File("Textures/Sleep.png"));
+	    	   imageHerbivoreChild=ImageIO.read(new File("Textures/DuckChild.png"));
+	    	   imageHerbivoreFemaleChild=ImageIO.read(new File("Textures/FemaleChildDuck.png"));
+	    	   imageHerbivoreFemale=ImageIO.read(new File("Textures/Deisi.png"));
+	    	   imagePassionHerbivore=ImageIO.read(new File("Textures/Love.png"));
+	    	   imageSleepingHerbivoreFemale=ImageIO.read(new File("Textures/FemaleDuckSleep.png"));
 	       		} 
 	       catch (IOException e) {System.out.println("Can't read file");}
 	       }
