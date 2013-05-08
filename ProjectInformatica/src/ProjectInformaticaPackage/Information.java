@@ -304,6 +304,12 @@ public static void checkIsHerbivoreBorn() {
 	    						}
 	    
 	}
+	
+	for (Iterator<Herbivore> current = linkedListOfBornedHerbivores.iterator(); current.hasNext(); ) {
+		linkedListOfHerbivores.add(current.next());
+	}
+	linkedListOfBornedHerbivores.clear();
+	
 }
 
 }
