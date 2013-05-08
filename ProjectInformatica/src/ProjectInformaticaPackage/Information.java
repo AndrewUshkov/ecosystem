@@ -248,7 +248,7 @@ public static LinkedList<Herbivore> getLinkedListOfHerbivores() {
 }
 
 public static Image getImageHerbivoreFemale() {
-	return imageSleepingHerbivoreFemale;
+	return imageHerbivoreFemale;
 }
 
 public static Image getImageHerbivore() {
@@ -267,9 +267,6 @@ public static Image getImageHerbivoreFemaleChild() {
 	return imageHerbivoreFemaleChild;
 }
 
-public static Image getImageHerbivoreFemale1() {
-	return imageHerbivoreFemale;
-}
 
 public static Image getImagePassionHerbivore() {
 	return imagePassionHerbivore;
