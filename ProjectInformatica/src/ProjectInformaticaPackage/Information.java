@@ -3,6 +3,7 @@ package ProjectInformaticaPackage;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.AbstractSequentialList;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -14,9 +15,12 @@ import javax.imageio.ImageIO;
 public class Information {                //этот класс занимается считыванием всех данных с консоли или компьютера (например, картинок для значков)
 	private static int amountPredator=4;
 	private static ArrayList<Leo> listOfLeos=new ArrayList<Leo>();    //здесь я написал коллекции животных индексные и ссылочные, но в данный момент во всей программе используются только ссылочные коллекции
+	private static ArrayList<Herbivore> listOfHerbivores=new ArrayList<Herbivore>();
 	private static LinkedList<Leo> linkedListOfLeos=new LinkedList<Leo>();  //ведь скорость перебора всех элементов выше именнно в ссылочных linked коллекциях
 	private static LinkedList<Grass> linkedListOfGrass=new LinkedList<Grass>();  //аналогично эта linked коллекция содержит все объекты травы
 	private static LinkedList<Leo> linkedListOfBornedLeos=new LinkedList<Leo>();
+	private static LinkedList<Herbivore> linkedListOfBornedHerbivores=new LinkedList<Herbivore>();
+	private static LinkedList<Herbivore> linkedListOfHerbivores=new LinkedList<Herbivore>();
 	private static int sizeOfCell;   //размер картинок, отображаемых на экране
 	private static int defaultWeight;     //это два размера главного окга программы
 	private static int defaultHeight;
@@ -32,6 +36,16 @@ public class Information {                //этот класс занимается считыванием вс
 	private static Image imageLeoFemale;
 	private static Image imagePassionLeo;
 	private static Image imageSleepingLeoFemale;
+	
+	private static Image imageSleepingHerbivore;
+	private static Image imageSleepingHerbivoreFemale;
+	private static Image imageHerbivore;
+	private static Image imageHerbivoreChild;
+	private static Image imageHerbivoreFemaleChild;
+	private static Image imageHerbivoreFemale;
+	private static Image imagePassionHerbivore;
+
+	
 	
 	public static void readPredatorsFromConsole(/*MainFrame frame*/) {    //понятно что делает. Пока что не реализован ввод данных  с клавиатуры
 		//Scanner in=new Scanner(System.in);
@@ -65,6 +79,15 @@ public class Information {                //этот класс занимается считыванием вс
 		}*/
 	}
 	
+	
+	public static void readHerbivoreFromConsole() {
+		linkedListOfHerbivores.add(new Herbivore(true, 200, 100, 400, 100, 100, 100,     (float)1,(float)0.5,2,   1,(float)0.2,1));
+		linkedListOfHerbivores.add(new Herbivore(false, 150, 300,  400, 100, 85,  20,      (float)1,(float)0.3,1,   3,(float)0.2,1));
+		linkedListOfHerbivores.add(new Herbivore(true, 400, 300,  400, 100, 20,  70,      (float)1,(float)0.3,3,   3,(float)0.2,1));
+		linkedListOfHerbivores.add(new Herbivore(false, 300, 200,  400, 100, 90,  50,     (float)1,(float)0.5,3,   1,(float)0.1,1));
+	}
+	
+	
 	public static void readGrassFromConsole() {    //аналогично предыдущему методу пока еще не реализован
 		linkedListOfGrass.add(new Grass(50,30,120));
 		linkedListOfGrass.add(new Grass(90,10,150));
@@ -90,6 +113,15 @@ public class Information {                //этот класс занимается считыванием вс
 	    	   imageLeoFemale=ImageIO.read(new File("Textures/LeoFemale.png"));
 	    	   imagePassionLeo=ImageIO.read(new File("Textures/PassionLeo.png"));
 	    	   imageSleepingLeoFemale=ImageIO.read(new File("Textures/SleepingLeoFemale.png"));
+	    	   
+	    	   //Для травоядных
+	    	   imageHerbivore=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imageSleepingHerbivore=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imageHerbivoreChild=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imageHerbivoreFemaleChild=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imageHerbivoreFemale=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imagePassionHerbivore=ImageIO.read(new File("Textures/Herbivore.jpg"));
+	    	   imageSleepingHerbivoreFemale=ImageIO.read(new File("Textures/Herbivore.jpg"));
 	       		} 
 	       catch (IOException e) {System.out.println("Can't read file");}
 	       }
@@ -203,4 +235,78 @@ public static int getQuantTime() {
 public static void setQuantTime(int newQuantTime) {
 	quantTime=newQuantTime;
 }
+
+//Травоядные
+
+public static ArrayList<Herbivore> getListOfHerbivores() {
+	return listOfHerbivores;
+	
+}
+
+public static LinkedList<Herbivore> getLinkedListOfHerbivores() {
+	return linkedListOfHerbivores;
+}
+
+public static Image getImageHerbivoreFemale() {
+	return imageSleepingHerbivoreFemale;
+}
+
+public static Image getImageHerbivore() {
+	return imageHerbivore;
+}
+
+public static Image getImageSleepingHerbivore() {
+	return imageSleepingHerbivore;
+}
+
+public static Image getImageHerbivoreChild() {
+	return imageHerbivoreChild;
+}
+
+public static Image getImageHerbivoreFemaleChild() {
+	return imageHerbivoreFemaleChild;
+}
+
+public static Image getImageHerbivoreFemale1() {
+	return imageHerbivoreFemale;
+}
+
+public static Image getImagePassionHerbivore() {
+	return imagePassionHerbivore;
+}
+
+public static Image getImageSleepingHerbivoreFemale() {
+	return imageSleepingHerbivoreFemale;
+}
+
+
+public static void checkIsHerbivoreBorn() {
+	for (Iterator<Herbivore> current = linkedListOfHerbivores.iterator(); current.hasNext(); ) {
+	    Herbivore currentAnimal = current.next();
+	    Random rand = new Random();
+	    if (currentAnimal.wantToBorn()) {linkedListOfBornedHerbivores.add(
+	    						new Herbivore( rand.nextBoolean(),
+	    								currentAnimal.getXPosition(),
+	    								currentAnimal.getYPosition(),
+	    								60+rand.nextInt(41),
+	    								100,
+	    								100,
+	    								100,
+	    								(currentAnimal.getLegacyStarvationCoefficient()+currentAnimal.getFromWhom().getLegacyStarvationCoefficient())/2-2+rand.nextInt(5),
+	    								(currentAnimal.getLegacyPassionCoefficient()+currentAnimal.getFromWhom().getLegacyPassionCoefficient())/2-(float)0.3+(float)rand.nextInt(7)/10,
+	    								(currentAnimal.getLegacyExhaustionCoefficient()+currentAnimal.getFromWhom().getLegacyExhaustionCoefficient())/2-2+rand.nextInt(5),
+	    								1+rand.nextInt(3),
+	    								-(float)0.3+(float)rand.nextInt(7)/10,
+	    								1+rand.nextInt(3)
+	    						));
+	    
+	    currentAnimal.setTimeOfPregnant(-1);
+	    currentAnimal.setFromWhom(null);
+	    currentAnimal.setWantToBorn(false);
+	    
+	    						}
+	    
+	}
+}
+
 }

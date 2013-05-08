@@ -24,6 +24,7 @@ class StartLife extends JFrame {
 		Thread currentPredatorThread;
 		
 		Information.readPredatorsFromConsole(/*this*/);  //много статических методов считывания информации
+		Information.readHerbivoreFromConsole();
 		Information.readGrassFromConsole();
 		Information.readSizeOfCellFromConsole();
 		Information.readDefaultHeightFromConsole();

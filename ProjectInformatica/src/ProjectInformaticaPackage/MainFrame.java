@@ -75,6 +75,26 @@ import javax.swing.*;
 						    
 						}
 						
+						for (Iterator<Herbivore> current = Information.getLinkedListOfHerbivores().iterator(); current.hasNext(); ) {
+						    Herbivore val = current.next();
+						    Image image;
+						    if ((image=val.getAnimalImage())==null) return;
+						    
+						    
+						    if (val.isChild()) {
+						    
+						    		g.drawImage(image,    //вот здесь с помощью getAnimalImage можно в зависимости от состояния объекта (гапример, он спит) ставить разные картинки
+						    				val.getXPosition(), 
+													val.getYPosition(),sizeOfCell*(30-val.timeOfInertion)/30,sizeOfCell*(30-val.timeOfInertion)/30, null);
+						    } else
+						    	g.drawImage(image,    //вот здесь с помощью getAnimalImage можно в зависимости от состояния объекта (гапример, он спит) ставить разные картинки
+					    				val.getXPosition(), 
+												val.getYPosition(),sizeOfCell,sizeOfCell, null);
+						    
+						    
+						    
+						    
+						}
 						
 						
 						
