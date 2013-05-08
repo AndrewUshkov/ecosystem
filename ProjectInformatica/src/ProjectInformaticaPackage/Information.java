@@ -117,8 +117,8 @@ public class Information {                //этот класс занимаетс€ считыванием вс
 	    	   //ƒл€ траво€дных
 	    	   imageHerbivore=ImageIO.read(new File("Textures/DonaldDuck.png"));
 	    	   imageSleepingHerbivore=ImageIO.read(new File("Textures/Sleep.png"));
-	    	   imageHerbivoreChild=ImageIO.read(new File("Textures/FemaleChildDuck.png"));
-	    	   imageHerbivoreFemaleChild=ImageIO.read(new File("Textures/DuckChild.png"));
+	    	   imageHerbivoreChild=ImageIO.read(new File("Textures/DuckChild.png"));
+	    	   imageHerbivoreFemaleChild=ImageIO.read(new File("Textures/FemaleChildDuck.png"));
 	    	   imageHerbivoreFemale=ImageIO.read(new File("Textures/Deisi.png"));
 	    	   imagePassionHerbivore=ImageIO.read(new File("Textures/Love.png"));
 	    	   imageSleepingHerbivoreFemale=ImageIO.read(new File("Textures/FemaleDuckSleep.png"));
