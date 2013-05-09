@@ -31,6 +31,7 @@ private float legacyExhaustionCoefficient;
 private float decision;
 private int timeOfPregnant=-1;
 private boolean wantToBorn=false;
+private int meat=40;
 private Herbivore fromWhom=null;
 //ArrayList <HerbivoreWish> HerbivoreNeeds;
 private boolean isChild=true;
@@ -38,6 +39,7 @@ private char previousAction=0;
 private Herbivore badFemale=null;                                        //самка, несогласная на спаривание
 public int timeOfInertion= this.isChild ? 30:0;
 private boolean hasNoThread=true;
+private boolean isAlive=true;
 public float getExhaustion() {
 	return exhaustion;
 }
@@ -144,17 +146,24 @@ public void setLegacyPassionCoefficient(float newLPCoef) {
 	legacyPassionCoefficient=newLPCoef;
 }
 public Image getAnimalImage() {
-	if (this.isMale()) {
-		if (this.previousAction==3) {return Information.getImageSleepingHerbivore();}
-		if (this.isChild) {return Information.getImageHerbivoreChild();}
-		if (this.previousAction==7) {return Information.getImagePassionHerbivore();}
-		return Information.getImageHerbivore();
+	if (this.isAlive) {
+		if (this.isMale()) {
+			if (this.previousAction==3) {return Information.getImageSleepingHerbivore();}
+			if (this.isChild) {return Information.getImageHerbivoreChild();}
+			if (this.previousAction==7) {return Information.getImagePassionHerbivore();}
+			return Information.getImageHerbivore();
+		} else {
+			if (this.previousAction==3) {return Information.getImageSleepingHerbivoreFemale();}
+			if (this.isChild) {return Information.getImageHerbivoreFemaleChild();}
+			if (this.previousAction==7) {return Information.getImagePassionHerbivore();}
+			return Information.getImageHerbivoreFemale();
+		}
 	} else {
-		if (this.previousAction==3) {return Information.getImageSleepingHerbivoreFemale();}
-		if (this.isChild) {return Information.getImageHerbivoreFemaleChild();}
-		if (this.previousAction==7) {return Information.getImagePassionHerbivore();}
-		return Information.getImageHerbivoreFemale();
+		if (this.meat>=80) {return Information.getImageLotOfMeat();}
+		if ((this.meat>=40)&&(this.meat<80)) {return Information.getImageMiddleMeat();} else
+			Information.getImageFewMeat();
 	}
+	return Information.getImageHerbivore();
 }
 public boolean femaleAgree() {
 	if ((passion<=50)&&(this.previousAction!=3)) return true; return false;
@@ -326,14 +335,26 @@ private void bornNewHerbivore() {
 	this.starvation-=10;
 	this.wantToBorn=true;
 }
-private void feelKillInstinct() {
+/*private void feelKillInstinct() {     // Травоядные не убивают сородичей
 	
+}*/
+public boolean isAlive() {
+	return this.isAlive;
+}
+public void kill() {
+	this.isAlive=false;
+	this.timeOfInertion=100;
+}
+public void eatMeat(int meat) {
+	this.meat-=meat;
+	if (this.meat<=0) {this.timeOfInertion=0;}
 }
 private void feelSleepy() {
 	this.exhaustion+=2*this.exhaustionCoefficient;
 }
 private int getDecision() {
 	if (this.timeOfInertion==0) {
+			if (!this.isAlive) return 0;
 			if (this.isChild) this.isChild=false;
 			this.age-=0.5;                                              //установка новых значений полей
 			this.starvation-=this.starvationCoefficient;
@@ -351,13 +372,16 @@ private int getDecision() {
 	if (this.exhaustion<=0) return 3;
 	
 	if (this.timeOfPregnant==0) {return 5;}
+	
+	if (this.isAlive) this.meat=(int)(this.starvation+this.age)/2;
+	
 	if ((this.starvation<=this.exhaustion)&&(this.starvation<=this.passion)) {this.previousAction=1; this.timeOfInertion=10; return 1;}
 	if ((this.starvation>=this.passion)&&(this.passion<=this.exhaustion)) {this.previousAction=2; this.timeOfInertion=5; return 2;}
 	if ((this.starvation>=this.exhaustion)&&(this.exhaustion<=this.passion)) {this.previousAction=3; this.timeOfInertion=20; return 3;}
 	return 3;
 	} else {
 			this.timeOfInertion--;
-			if (!this.isChild) {
+			if ((!this.isChild)&&(this.isAlive)) {
 					this.age-=0.5;                                              //установка новых значений полей
 					this.starvation-=this.starvationCoefficient;
 					
@@ -373,7 +397,7 @@ private int getDecision() {
 					
 			if (this.timeOfPregnant==0) {this.timeOfInertion=0; return 5;}
 			
-			
+			if (this.isAlive) this.meat=(int)(this.starvation+this.age)/2;
 			
 			
 			}
@@ -401,10 +425,10 @@ public boolean makeDecision() {
 	if (decision==0) {return false;}
 	if (decision==1) {System.out.println("Hungry "+this.starvation+" "+this.exhaustion+" "+this.passion); this./*feelHungry();*/goToNearestGrass();}
 	if (decision==2) {System.out.println("Passion "+this.starvation+" "+this.exhaustion+" "+this.passion); if (this.feelPassion(this.badFemale)==-1) {}}
-	if (decision==4) {this.feelKillInstinct();}
+	//if (decision==4) {this.feelKillInstinct();}
 	if (decision==3) {System.out.println("Sleep "+this.starvation+" "+this.exhaustion+" "+this.passion); this.feelSleepy();}
 	if (decision==5) {System.out.println("Want to born"); this.bornNewHerbivore();}
-	if (decision==6) {
+	if ((decision==6)&&(this.isAlive)) {
 			System.out.println("Previous action"); 
 			switch (this.previousAction) {
 			case 0:
@@ -419,9 +443,9 @@ public boolean makeDecision() {
 			case 3:
 				System.out.println("Sleep "+this.starvation+" "+this.exhaustion+" "+this.passion); this.feelSleepy();
 			break;
-			case 4:
+			/*case 4:
 				this.feelKillInstinct();
-			break;
+			break;*/
 			case 7:
 			break;
 			}

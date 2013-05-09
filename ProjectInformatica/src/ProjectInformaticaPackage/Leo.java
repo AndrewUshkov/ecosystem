@@ -239,7 +239,35 @@ public Leo getFromWhom() {
 	return this.fromWhom;
 }
 private void feelHungry() {
+	if (!Information.getLinkedListOfHerbivores().isEmpty()) {
+		Herbivore nearestHerbivore=Information.getLinkedListOfHerbivores().getFirst();
+		int nearestDistance=(nearestHerbivore.getXPosition()-this.xPosition)*(nearestHerbivore.getXPosition()-this.xPosition)+(nearestHerbivore.getYPosition()-this.yPosition)*(nearestHerbivore.getYPosition()-this.yPosition);
+		int currentDistance;
+		Herbivore currentHerbivore;
+		for (Iterator<Herbivore> current = Information.getLinkedListOfHerbivores().iterator(); current.hasNext(); ) {
+		    currentHerbivore = current.next();
+		    currentDistance=(currentHerbivore.getXPosition()-this.xPosition)*(currentHerbivore.getXPosition()-this.xPosition)+(currentHerbivore.getYPosition()-this.yPosition)*(currentHerbivore.getYPosition()-this.yPosition);
+		    
+		    if (currentDistance<nearestDistance) {nearestHerbivore=currentHerbivore; nearestDistance=currentDistance;}
+		}
+		
+		if (nearestHerbivore.getXPosition()>=this.xPosition) {this.xPosition+=4;} else this.xPosition-=4;
+		if (nearestHerbivore.getYPosition()>=this.yPosition) {this.yPosition+=4;} else this.yPosition-=4;
+		if (this.xPosition>=Information.getDefaultWeight()) {this.xPosition-=Information.getDefaultWeight();}
+		if (this.xPosition<=0) {this.xPosition+=Information.getDefaultWeight();}
+		if (this.yPosition>=Information.getDefaultHeight()) {this.yPosition-=Information.getDefaultHeight();}
+		if (this.yPosition<=0) {this.yPosition+=Information.getDefaultHeight();}
+		if (nearestDistance<=Information.getSizeOfCell()/2) {
+				this.eatHerbivore(nearestHerbivore);
+			}
 	
+	}
+	
+}
+private void eatHerbivore(Herbivore victim) {
+	if (victim.isAlive()) victim.kill();
+	victim.eatMeat(5);
+	this.starvation+=5;
 }
 private void becomePregnant() {
 	this.timeOfPregnant=30;
@@ -399,7 +427,7 @@ public void setWantToBorn(boolean a) {
 public boolean makeDecision() {
 	decision=this.getDecision();
 	if (decision==0) {return false;}
-	if (decision==1) {System.out.println("Hungry "+this.starvation+" "+this.exhaustion+" "+this.passion); this./*feelHungry();*/goToNearestGrass();}
+	if (decision==1) {System.out.println("Hungry "+this.starvation+" "+this.exhaustion+" "+this.passion); this.feelHungry();/*goToNearestGrass();*/}
 	if (decision==2) {System.out.println("Passion "+this.starvation+" "+this.exhaustion+" "+this.passion); if (this.feelPassion(this.badFemale)==-1) {}}
 	if (decision==4) {this.feelKillInstinct();}
 	if (decision==3) {System.out.println("Sleep "+this.starvation+" "+this.exhaustion+" "+this.passion); this.feelSleepy();}
@@ -411,7 +439,7 @@ public boolean makeDecision() {
 				System.out.println("Childhood");
 			break;
 			case 1:
-				System.out.println("Hungry "+this.starvation+" "+this.exhaustion+" "+this.passion); this./*feelHungry();*/goToNearestGrass();
+				System.out.println("Hungry "+this.starvation+" "+this.exhaustion+" "+this.passion); this.feelHungry();/*goToNearestGrass();*/
 			break;
 			case 2:
 				System.out.println("Passion "+this.starvation+" "+this.exhaustion+" "+this.passion); if (this.feelPassion(this.badFemale)==-1) {}

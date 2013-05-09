@@ -44,6 +44,10 @@ public class Information {                //этот класс занимается считыванием вс
 	private static Image imageHerbivoreFemaleChild;
 	private static Image imageHerbivoreFemale;
 	private static Image imagePassionHerbivore;
+	
+	private static Image imageLotOfMeat;
+	private static Image imageMiddleMeat;
+	private static Image imageFewMeat;
 
 	
 	
@@ -103,16 +107,20 @@ public class Information {                //этот класс занимается считыванием вс
 	
 	public static void loadImages() {                //загружает фотографии нужные
 	       try {
+	    	   
+	    	   //для львов
 	    	   imageLeo=ImageIO.read(new File("Textures/leo.png"));
 	    	   imageSleepingLeo=ImageIO.read(new File("Textures/sleeping_leo.png"));
-	    	   imageGreenGrass=ImageIO.read(new File("Textures/GreenGrass.jpg"));
-	    	   imageYellowGrass=ImageIO.read(new File("Textures/YellowGrass.jpg"));
-	    	   imageUsualGround=ImageIO.read(new File("Textures/UsualGround.jpg"));
 	    	   imageLeoChild=ImageIO.read(new File("Textures/NewLeoChild.png"));
 	    	   imageLeoFemaleChild=ImageIO.read(new File("Textures/leoChildFemale.png"));
 	    	   imageLeoFemale=ImageIO.read(new File("Textures/LeoFemale.png"));
 	    	   imagePassionLeo=ImageIO.read(new File("Textures/PassionLeo.png"));
 	    	   imageSleepingLeoFemale=ImageIO.read(new File("Textures/SleepingLeoFemale.png"));
+	    	   
+	    	   //для травы и земли
+	    	   imageGreenGrass=ImageIO.read(new File("Textures/GreenGrass.jpg"));
+	    	   imageYellowGrass=ImageIO.read(new File("Textures/YellowGrass.jpg"));
+	    	   imageUsualGround=ImageIO.read(new File("Textures/UsualGround.jpg"));
 	    	   
 	    	   //Для травоядных
 	    	   imageHerbivore=ImageIO.read(new File("Textures/DonaldDuck.png"));
@@ -122,6 +130,12 @@ public class Information {                //этот класс занимается считыванием вс
 	    	   imageHerbivoreFemale=ImageIO.read(new File("Textures/Deisi.png"));
 	    	   imagePassionHerbivore=ImageIO.read(new File("Textures/Love.png"));
 	    	   imageSleepingHerbivoreFemale=ImageIO.read(new File("Textures/FemaleDuckSleep.png"));
+	    	   
+	    	   //для остатков животных
+	    	   imageLotOfMeat=ImageIO.read(new File("Textures/LotOfMeat.png"));
+	    	   imageMiddleMeat=ImageIO.read(new File("Textures/MiddleMeat.png"));
+	    	   imageFewMeat=ImageIO.read(new File("Textures/FewMeat.png"));
+	    	   
 	       		} 
 	       catch (IOException e) {System.out.println("Can't read file");}
 	       }
@@ -228,7 +242,15 @@ public static Image getImagePassionLeo() {
 public static Image getImageSleepingLeoFemale() {
 	return imageSleepingLeoFemale;
 }
-
+public static Image getImageLotOfMeat() {
+	return imageLotOfMeat;
+}
+public static Image getImageMiddleMeat() {
+	return imageMiddleMeat;
+}
+public static Image getImageFewMeat() {
+	return imageFewMeat;
+}
 public static int getQuantTime() {
 		return quantTime;
 }
