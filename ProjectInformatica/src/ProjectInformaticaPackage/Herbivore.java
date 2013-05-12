@@ -274,6 +274,10 @@ private void tryMakeChildren(Herbivore female) {
 				
 	
 }
+
+
+
+
 private int feelPassion(Herbivore badFemale) {
 if (this.isMale()) {
 	if (!Information.getLinkedListOfHerbivores().isEmpty()) {
@@ -353,6 +357,28 @@ private void feelSleepy() {
 	this.exhaustion+=2*this.exhaustionCoefficient;
 }
 private int getDecision() {
+	
+	if (this.RunAwayFromPredator()) {
+		this.age-=0.5;                                              //установка новых значений полей
+		this.starvation-=this.starvationCoefficient;
+		
+		if (passion>20) {this.passion-=this.passionCoefficient;}
+		if (passion<=20) this.badFemale=null;
+		
+		this.exhaustion-=this.exhaustionCoefficient;
+		
+		if (this.age<=0) {System.out.println("Age"); return 0;}
+		if (this.starvation<=0) {System.out.println("Starvation"); return 0;}
+		if (this.exhaustion<=0) return 3;
+		
+		if (this.isAlive) this.meat=(int)(this.starvation+this.age)/2;
+		
+		return 7;
+		
+		
+		
+		
+	} else {
 	if (this.timeOfInertion==0) {
 			if (!this.isAlive) return 0;
 			if (this.isChild) this.isChild=false;
@@ -414,7 +440,8 @@ private int getDecision() {
 		
 	Collections.sort(HerbivoreNeeds);
 	return HerbivoreNeeds.get(HerbivoreNeeds.size()-1).getNumberOfHerbivoreNeed();*/
-	
+
+	}
 }
 
 public void setWantToBorn(boolean a) {
@@ -422,6 +449,7 @@ public void setWantToBorn(boolean a) {
 }
 public boolean makeDecision() {
 	decision=this.getDecision();
+	if (decision==7) {this.previousAction=7;}
 	if (decision==0) {return false;}
 	if (decision==1) {System.out.println("Hungry "+this.starvation+" "+this.exhaustion+" "+this.passion); this./*feelHungry();*/goToNearestGrass();}
 	if (decision==2) {System.out.println("Passion "+this.starvation+" "+this.exhaustion+" "+this.passion); if (this.feelPassion(this.badFemale)==-1) {}}
@@ -459,4 +487,55 @@ public boolean hasNoThread() {
 public void hasThread() {
 	this.hasNoThread=false;
 }
+
+/*Осуществляется проверка каждый раз, когда принимается решение.
+ * Если рядом есть хищники, травоядный убегает от них.
+ * Метод возвращает true если нужно убегать и false если не нужно.
+ */
+private boolean RunAwayFromPredator()
+{
+	//Дистанция опасности.
+	int DangerDistance = 5;
+	DangerDistance = DangerDistance*DangerDistance;
+	int min = DangerDistance + 1;
+	int currentDistance;
+	Leo currentLeo; 
+	
+	
+	
+	
+
+	//Мертвые не убегают.
+	if (!this.isAlive) 
+	{
+		return false;
+	}
+	//Дети не убегают
+	if (this.isChild) 
+	{
+		return false;
+	}
+	
+	//Расстояние до ближайшего хищника
+	for (Iterator<Leo> current = Information.getLinkedListOfLeos().iterator(); current.hasNext(); ) 
+	{
+	    currentLeo = current.next();
+	    currentDistance=(currentLeo.getXPosition()-this.xPosition)*(currentLeo.getXPosition()-this.xPosition)+(currentLeo.getYPosition()-this.yPosition)*(currentLeo.getYPosition()-this.yPosition);
+	    if(currentDistance<min)
+	    {
+	    	min = currentDistance;
+	    }
+	}
+	
+	if(min>DangerDistance)
+	{
+		return false;
+	}
+	
+	this.setXPosition(this.xPosition +8);
+	this.setYPosition(this.yPosition+0);
+	min=11;
+	return true;
+}
+
 }
