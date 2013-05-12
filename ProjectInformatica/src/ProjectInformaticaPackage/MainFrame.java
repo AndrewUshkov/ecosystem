@@ -13,27 +13,18 @@ import javax.swing.*;
 		}
 }*/
 	class MainFrame extends JFrame {                                   
-		public MainFrame(int DEFAULT_WIDTH, int DEFAULT_HEIGHT) {
+		public MainFrame() {
 			setTitle("ProjectInformatica");
-			//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-			setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 			
 			
-					
-			//setSize(d.width,d.height);
-			//setExtendedState(JFrame.MAXIMIZED_BOTH);
-			//setExtendedState(JFrame.MAXIMIZED_BOTH);
 			BioPanel lpanel=new BioPanel();
 			add(lpanel);
 		}
-		//private LinkedList<LifeForm> getListOfLifeForms() {
-		//}
 	}
 	
 	
 	
 	class BioPanel extends JPanel {
-		//private Image image;
 		public BioPanel() {
 			
 			
@@ -44,7 +35,10 @@ import javax.swing.*;
 						int sizeOfCell=Information.getSizeOfCell();
 						
 						
-						g.drawImage(Information.getImageGround(),0,0,Information.getDefaultWeight(),Information.getDefaultHeight(),null);
+						g.drawImage(Information.getImageGround(),0,0,this.getSize().width,this.getSize().height,null);
+						
+						
+						if (Information.worldCreated()) {
 						for (Iterator<Grass> current = Information.getLinkedListOfGrass().iterator(); current.hasNext(); ) { //аналогично для травы
 						    Grass val = current.next();
 						    if (val.getGrassImage()==null) return;
@@ -95,6 +89,9 @@ import javax.swing.*;
 						    
 						    
 						}
+						
+						
+					}
 						
 						
 						

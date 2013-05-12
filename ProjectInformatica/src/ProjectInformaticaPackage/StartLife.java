@@ -1,5 +1,8 @@
 package ProjectInformaticaPackage;
 
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
@@ -23,15 +26,24 @@ class StartLife extends JFrame {
 		Leo b;
 		Thread currentPredatorThread;
 		
-		Information.readPredatorsFromConsole(/*this*/);  //много статических методов считывания информации
-		Information.readHerbivoreFromConsole();
-		Information.readGrassFromConsole();
+		//Information.readPredatorsFromConsole(/*this*/);  //много статических методов считывания информации
+		//Information.readHerbivoreFromConsole();
+		//Information.readGrassFromConsole();
 		Information.readSizeOfCellFromConsole();
-		Information.readDefaultHeightFromConsole();
-		Information.readDefaultWeightFromConsole();
 		Information.loadImages();
-		MainFrame frame=new MainFrame(Information.getDefaultWeight(), Information.getDefaultHeight()); //создаем главное окно
+		MainFrame frame=new MainFrame(); //создаем главное окно
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Toolkit kit=Toolkit.getDefaultToolkit();
+		Dimension screenSize=kit.getScreenSize();
+		//frame.setLocation(screenSize.width/2-Information.getDefaultWeight()/2,screenSize.height/2-Information.getDefaultHeight()/2);
+		Image icon=kit.getImage("Textures/IconLeave.jpg");
+		frame.setIconImage(icon);
+		frame.setLocation(0, 0);
+		frame.setBounds(0,0 , screenSize.width, screenSize.height);
+		frame.setExtendedState(MAXIMIZED_BOTH);
+		Information.readDefaultHeightFromConsole(frame);
+		Information.readDefaultWeightFromConsole(frame);
+		
 		
 		
 		JMenuBar menuBar=new JMenuBar();
@@ -45,18 +57,20 @@ class StartLife extends JFrame {
 		JMenuItem stopItem=new JMenuItem("Остановить");
 		JMenuItem pauseItem=new JMenuItem("Пауза");
 		JMenuItem renewalItem=new JMenuItem("Возобновить");
+		JMenuItem createItem=new JMenuItem("Создать..");
 		menuActions.add(stopItem);
 		menuActions.add(pauseItem);
 		menuActions.add(renewalItem);
+		menuNewWorld.add(createItem);
 		PauseAction pause= new PauseAction(0);
 		PauseAction renewal=new PauseAction(100);
+		CreateAction newWorld=new CreateAction();
 		pauseItem.addActionListener(pause);
 		renewalItem.addActionListener(renewal);
-		
+		createItem.addActionListener(newWorld);
 		
 		
 		frame.setVisible(true);
-		
 		
 		
 		
@@ -66,6 +80,7 @@ class StartLife extends JFrame {
 		GrassThread grassThread=new GrassThread();
 		
 		do {
+			if (Information.worldCreated()) {  //запускаем нити только если знаем, что мир сформирован
 			
 		quantTime=Information.getQuantTime();
 		if (quantTime>0) {
@@ -79,6 +94,7 @@ class StartLife extends JFrame {
 				} catch (Exception e) {}
 			frame.repaint();
 		}	
+			}
 		} while (true);
 		
 		
@@ -118,5 +134,13 @@ class PauseAction implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		if (time==0) {}
 		Information.setQuantTime(time);
+	}
+}
+class CreateAction implements ActionListener {
+	public void actionPerformed(ActionEvent event) {
+		System.out.println("fvdx");
+		JFrame test=new CreateNewWorld();
+		test.setVisible(true);
+		
 	}
 }

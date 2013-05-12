@@ -259,8 +259,8 @@ private void tryMakeChildren(Herbivore female) {
 				this.setYPosition(female.getYPosition());
 			    this.timeOfInertion=10;
 			    female.timeOfInertion=10;
-			    this.previousAction=7;
-			    female.previousAction=7;
+			    this.previousAction=8;
+			    female.previousAction=8;
 				this.passion=100;
 				female.setPassion(100);
 				this.badFemale=null;
@@ -474,7 +474,7 @@ public boolean makeDecision() {
 			/*case 4:
 				this.feelKillInstinct();
 			break;*/
-			case 7:
+			case 8:
 			break;
 			}
 			}
