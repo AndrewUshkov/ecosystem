@@ -44,6 +44,8 @@ public class Information {                //этот класс занимается считыванием вс
 	private static Image imageHerbivoreFemaleChild;
 	private static Image imageHerbivoreFemale;
 	private static Image imagePassionHerbivore;
+	private static Image imageHerbivoreFemaleRun;
+	private static Image imageHerbivoreRun;
 	
 	private static Image imageLotOfMeat;
 	private static Image imageMiddleMeat;
@@ -130,6 +132,8 @@ public class Information {                //этот класс занимается считыванием вс
 	    	   imageHerbivoreFemale=ImageIO.read(new File("Textures/DaisyDuckHead.png"));
 	    	   imagePassionHerbivore=ImageIO.read(new File("Textures/Love.png"));
 	    	   imageSleepingHerbivoreFemale=ImageIO.read(new File("Textures/FemaleDuckSleep.png"));
+	    	   imageHerbivoreRun = ImageIO.read(new File("Textures/DonaldDuckRun.png"));
+	    	   imageHerbivoreFemaleRun = ImageIO.read(new File("Textures/DaisyDuckRun.png"));
 	    	   
 	    	   //для остатков животных
 	    	   imageLotOfMeat=ImageIO.read(new File("Textures/LotOfMeat.png"));
@@ -332,6 +336,17 @@ public static void checkIsHerbivoreBorn() {
 	}
 	linkedListOfBornedHerbivores.clear();
 	
+}
+
+
+public static Image getImageHerbivoreFemaleRun() {
+	// TODO Auto-generated method stub
+	return imageHerbivoreFemaleRun;
+}
+
+public static Image getImageHerbivoreRun() {
+	// TODO Auto-generated method stub
+	return imageHerbivoreRun;
 }
 
 }

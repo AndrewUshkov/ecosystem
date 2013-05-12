@@ -150,12 +150,12 @@ public Image getAnimalImage() {
 		if (this.isMale()) {
 			if (this.previousAction==3) {return Information.getImageSleepingHerbivore();}
 			if (this.isChild) {return Information.getImageHerbivoreChild();}
-			if (this.previousAction==7) {return Information.getImageHerbivore();}
+			if (this.previousAction==7) {return Information.getImageHerbivoreRun();}
 			return Information.getImageHerbivore();
 		} else {
 			if (this.previousAction==3) {return Information.getImageSleepingHerbivoreFemale();}
 			if (this.isChild) {return Information.getImageHerbivoreFemaleChild();}
-			if (this.previousAction==7) {return Information.getImageHerbivoreFemale();}
+			if (this.previousAction==7) {return Information.getImageHerbivoreFemaleRun();}
 			return Information.getImageHerbivoreFemale();
 		}
 	} else {
