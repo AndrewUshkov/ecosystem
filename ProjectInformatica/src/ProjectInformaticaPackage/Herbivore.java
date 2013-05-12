@@ -494,15 +494,15 @@ public void hasThread() {
  */
 private boolean RunAwayFromPredator()
 {
+	//Скорость бегства
+	int speed = 6;
 	//Дистанция опасности.
 	int DangerDistance = 5;
+	
 	DangerDistance = DangerDistance*DangerDistance;
 	int min = DangerDistance + 1;
 	int currentDistance;
 	Leo currentLeo; 
-	
-	
-	
 	
 
 	//Мертвые не убегают.
@@ -527,14 +527,71 @@ private boolean RunAwayFromPredator()
 	    }
 	}
 	
+	//Если хищники далеко, нужно жить обычной жизнью.
 	if(min>DangerDistance)
 	{
 		return false;
 	}
 	
-	this.setXPosition(this.xPosition +8);
-	this.setYPosition(this.yPosition+0);
-	min=11;
+	//Если хищники близко, решаем, куда бежать.
+	
+	//Варианты отступления по 8 направлениям. Speed - скорость бегства
+	int speed45 = (int)Math.floor(((double)speed)/1.41);
+	
+	int[][] way = new int[8][2];
+	
+	way[0][0]=speed;
+	way[0][1]=0;
+	
+	way[1][0]=-speed;	
+	way[1][1]=0;	
+	
+	way[2][0]=0;
+	way[2][1]=speed;
+	
+	way[3][0]=0;
+	way[3][1]=-speed;
+	
+	way[4][0]=speed45;
+	way[4][1]=speed45;
+
+	way[5][0]=speed45;
+	way[5][1]=-speed45;
+			
+	way[6][0]=-speed45;
+	way[6][1]=speed45;
+			
+	way[7][0]=-speed45;
+	way[7][1]=-speed45;
+	
+	int bestdir = 0;
+	int max = -1; 
+	
+	
+//После какого шага львы будут дальше всего
+	for (int i=0; i<=7; i++)
+	{
+		min = 800;
+		for (Iterator<Leo> current = Information.getLinkedListOfLeos().iterator(); current.hasNext(); ) 
+		{
+		    currentLeo = current.next();
+		    currentDistance=(currentLeo.getXPosition() - way[i][0] -this.xPosition)*(currentLeo.getXPosition() - way[i][0] - this.xPosition) + 
+		    		(currentLeo.getYPosition() - way[i][1] - this.yPosition)*(currentLeo.getYPosition() - way[i][1] -this.yPosition);
+		    if(currentDistance<min)
+		    {
+		    	min = currentDistance;
+		    }
+		}
+		if (min > max)
+		{
+			max=min;
+			bestdir=i;
+		}
+	}
+	
+	//Такой шаг и делаем
+	this.setXPosition(this.xPosition + way[bestdir][0]);
+	this.setYPosition(this.yPosition + way[bestdir][1]);
 	return true;
 }
 
