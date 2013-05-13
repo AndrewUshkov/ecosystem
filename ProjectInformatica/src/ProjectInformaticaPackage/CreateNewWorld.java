@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -73,7 +75,8 @@ public class CreateNewWorld extends JFrame {
 			
 			CreationAction creationNewWorld=new CreationAction(this);
 			enter.addActionListener(creationNewWorld);
-			
+			//WriteTextAction writeText=new WriteTextAction();
+			//option.addMouseListener(writeText);
 			
 		}
 	
@@ -108,4 +111,24 @@ class CreationAction implements ActionListener {
 		//говорим, что мир сформирован
 		Information.setWorldCreated(true);
 	}
+}
+
+class WriteTextAction implements MouseListener {
+	
+	public void mouseClicked(MouseEvent e) {
+		
+	}
+	public void mouseEntered(MouseEvent e) {
+		System.out.println("tbtdb\n\n\n\n\n\n\n\\n\n\n\n");
+	}
+	public void mouseExited(MouseEvent e) {
+		
+	}
+	public void mousePressed(MouseEvent e) {
+		
+	}
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+	
 }

@@ -495,7 +495,7 @@ public void hasThread() {
 private boolean RunAwayFromPredator()
 {
 	//Скорость бегства
-	int speed = 6;
+	int speed = 5;
 	//Дистанция опасности.
 	int DangerDistance = 5;
 	

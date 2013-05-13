@@ -257,7 +257,7 @@ private void feelHungry() {
 		if (this.xPosition<=0) {this.xPosition+=Information.getDefaultWeight();}
 		if (this.yPosition>=Information.getDefaultHeight()) {this.yPosition-=Information.getDefaultHeight();}
 		if (this.yPosition<=0) {this.yPosition+=Information.getDefaultHeight();}
-		if (nearestDistance<=Information.getSizeOfCell()/2) {
+		if (nearestDistance<=Information.getSizeOfCell()) {
 				this.eatHerbivore(nearestHerbivore);
 			}
 	

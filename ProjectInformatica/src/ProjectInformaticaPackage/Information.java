@@ -55,6 +55,8 @@ public class Information {                //этот класс занимается считыванием вс
 
 	private static boolean worldCreated=false;
 	
+	//private static boolean isEvent=false;
+	
 	public static void readPredatorsFromConsole(/*MainFrame frame*/) {    //понятно что делает. Пока что не реализован ввод данных  с клавиатуры
 		//Scanner in=new Scanner(System.in);
 		
@@ -75,10 +77,10 @@ public class Information {                //этот класс занимается считыванием вс
 					rand.nextInt(defaultHeight), 
 						rand.nextInt(500), 
 							100, 100, 100,    
-							1+rand.nextInt(3),
+							(float)(0.1+rand.nextInt(3)/5),
 							(float)rand.nextInt(7)/10,
 							1+rand.nextInt(3),
-			1+rand.nextInt(3),
+			(float)(0.1+rand.nextInt(3)/5),
 			(float)rand.nextInt(7)/10,
 			1+rand.nextInt(3))
 			);
@@ -124,10 +126,10 @@ public class Information {                //этот класс занимается считыванием вс
 					rand.nextInt(defaultHeight), 
 						rand.nextInt(500), 
 							100, 100, 100,    
-							1+rand.nextInt(3),
+							(float)(0.1+rand.nextInt(3)/5),
 							(float)rand.nextInt(7)/10,
 							1+rand.nextInt(3),
-			1+rand.nextInt(3),
+			(float)(0.1+rand.nextInt(3)/5),
 			(float)rand.nextInt(7)/10,
 			1+rand.nextInt(3))
 			);
@@ -417,4 +419,10 @@ public static boolean worldCreated() {
 public static void setWorldCreated(boolean b) {
 	worldCreated=b;
 }
+/*public static boolean isEvent() {
+	return isEvent;
+}
+public static void setIsEvent(boolean b) {
+	isEvent=b;
+}*/
 }
