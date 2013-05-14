@@ -52,6 +52,8 @@ public class Information {                //этот класс занимается считыванием вс
 	private static Image imageLotOfMeat;
 	private static Image imageMiddleMeat;
 	private static Image imageFewMeat;
+	
+	private static Image imageBigCursor;
 
 	private static boolean worldCreated=false;
 	
@@ -190,6 +192,9 @@ public class Information {                //этот класс занимается считыванием вс
 	    	   imageLotOfMeat=ImageIO.read(new File("Textures/LotOfMeat.png"));
 	    	   imageMiddleMeat=ImageIO.read(new File("Textures/MiddleMeat.png"));
 	    	   imageFewMeat=ImageIO.read(new File("Textures/FewMeat.png"));
+	    	   
+	    	   //для указателя на животное
+	    	   imageBigCursor=ImageIO.read(new File("Textures/BigCursor.png"));
 	    	   
 	       		} 
 	       catch (IOException e) {System.out.println("Can't read file");}
@@ -397,6 +402,9 @@ public static Image getImageHerbivoreFemaleRun() {
 	return imageHerbivoreFemaleRun;
 }
 
+public static Image getImageBigCursor() {
+	return imageBigCursor;
+}
 public static Image getImageHerbivoreRun() {
 	// TODO Auto-generated method stub
 	return imageHerbivoreRun;

@@ -40,6 +40,7 @@ private Herbivore badFemale=null;                                        //самка
 public int timeOfInertion= this.isChild ? 30:0;
 private boolean hasNoThread=true;
 private boolean isAlive=true;
+private boolean bigCursor=false;
 public float getExhaustion() {
 	return exhaustion;
 }
@@ -91,6 +92,9 @@ public void setAge(float newAge) {
 }
 public float getPassion() {
 	return passion;
+}
+public int getPreviousAction() {
+	return this.previousAction;
 }
 public void setPassion(float passion) {
 	this.passion = passion;
@@ -233,7 +237,11 @@ public void goToNearestGrass() {
 	if (this.xPosition<=0) {this.xPosition+=Information.getDefaultWeight();}
 	if (this.yPosition>=Information.getDefaultHeight()) {this.yPosition-=Information.getDefaultHeight();}
 	if (this.yPosition<=0) {this.yPosition+=Information.getDefaultHeight();}
-	if (nearestDistance<=Information.getSizeOfCell()) {this.starvation+=nearestGrass.getEnergyValue();}
+	if (nearestDistance<=Information.getSizeOfCell()) {
+		
+		this.starvation+=nearestGrass.getEnergyValue();
+		if (this.starvation>100) this.starvation=100;
+			}
 	
 	}
 }
@@ -354,7 +362,9 @@ public void eatMeat(int meat) {
 	if (this.meat<=0) {this.timeOfInertion=0;}
 }
 private void feelSleepy() {
-	this.exhaustion+=2*this.exhaustionCoefficient;
+	if (this.exhaustion<2*this.exhaustionCoefficient) {
+		this.exhaustion+=2*this.exhaustionCoefficient;
+		} else this.exhaustion=100;
 }
 private int getDecision() {
 	
@@ -593,6 +603,12 @@ private boolean RunAwayFromPredator()
 	this.setXPosition(this.xPosition + way[bestdir][0]);
 	this.setYPosition(this.yPosition + way[bestdir][1]);
 	return true;
+}
+public void setBigCursor(boolean a) {
+	this.bigCursor=a;
+}
+public boolean haveBigCursor() {
+	return this.bigCursor;
 }
 
 }

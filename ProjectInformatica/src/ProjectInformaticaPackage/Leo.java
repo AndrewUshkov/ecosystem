@@ -38,6 +38,7 @@ private char previousAction=0;
 private Leo badFemale=null;                                        //самка, несогласная на спаривание
 public int timeOfInertion= this.isChild ? 30:0;
 private boolean hasNoThread=true;
+private boolean bigCursor=false;
 public float getExhaustion() {
 	return exhaustion;
 }
@@ -89,6 +90,9 @@ public void setAge(float newAge) {
 }
 public float getPassion() {
 	return passion;
+}
+public int getPreviousAction() {
+	return this.previousAction;
 }
 public void setPassion(float passion) {
 	this.passion = passion;
@@ -268,6 +272,7 @@ private void eatHerbivore(Herbivore victim) {
 	if (victim.isAlive()) victim.kill();
 	victim.eatMeat(5);
 	this.starvation+=5;
+	if (this.starvation>100) this.starvation=100;
 }
 private void becomePregnant() {
 	this.timeOfPregnant=30;
@@ -358,7 +363,9 @@ private void feelKillInstinct() {
 	
 }
 private void feelSleepy() {
+	if (this.exhaustion<2*this.exhaustionCoefficient) {
 	this.exhaustion+=2*this.exhaustionCoefficient;
+	} else this.exhaustion=100;
 }
 private int getDecision() {        // здесь происходит сравнивание всех шкал и определение, что делать дальше
 	if (this.timeOfInertion==0) {
@@ -456,6 +463,12 @@ public boolean makeDecision() {
 			}
 	
 	return true;
+}
+public void setBigCursor(boolean a) {
+	this.bigCursor=a;
+}
+public boolean haveBigCursor() {
+	return this.bigCursor;
 }
 /*public boolean hasNoThread() {  // сейчас не используется
 	return this.hasNoThread;

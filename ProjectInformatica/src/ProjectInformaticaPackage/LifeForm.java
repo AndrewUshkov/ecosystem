@@ -23,6 +23,9 @@ public interface LifeForm {          //это интерфейс для predator и herbivore
 	void setLegacyPassionCoefficient(float newLPCoef);
 	Image getAnimalImage();
 	boolean isMale();
+	int getPreviousAction();
+	void setBigCursor(boolean a);
+	boolean haveBigCursor();
 	//CoordinatesXY goToNearestPredator();
 	boolean makeDecision();   //любой predator или herbivore должен иметь этот метод, чтобы его вызывали в цикле перебора всех объектов из коллекции
 }

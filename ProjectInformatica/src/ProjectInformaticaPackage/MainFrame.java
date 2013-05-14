@@ -21,30 +21,24 @@ import javax.swing.*;
 		int y;
 		int cell=Information.getSizeOfCell();
 		boolean isEvent;
+		//LinkedList<InformationAboutAnimal> listInfo=new LinkedList<InformationAboutAnimal>();
+		InformationAboutAnimal info;
 		public BioPanel() {
 			this.addMouseListener(new MouseListener() {
 				@Override
 	            public void mouseReleased(MouseEvent e) {
-	                //System.out.println(":MOUSE_RELEASED_EVENT:");
 	            }
 	            @Override
 	            public void mousePressed(MouseEvent e) {
-	                //System.out.println(":MOUSE_PRESSED_EVENT:");
 	            }
 	            @Override
 	            public void mouseExited(MouseEvent e) {
-	               // System.out.println(":MOUSE_EXITED_EVENT:");
 	            }
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
-	                //System.out.println(":MOUSE_ENTER_EVENT:");
 	            }
 	            @Override
 	            public void mouseClicked(MouseEvent e) {
-	            	//this.showInformationAnimal(e.getX(),e.getY());
-	            	//System.out.println("Changed");
-	            	//if (!Information.isEvent()) {Information.setIsEvent(true); /*System.out.println("Changed");*/}
-	            	//Information.setIsEvent(true);
 	            	if (Information.worldCreated()) {
 	            	x=e.getX();
 	            	y=e.getY();
@@ -72,8 +66,17 @@ import javax.swing.*;
 	private void showInformationAboutAnimal() {
 		LifeForm animal;
 		if ((animal=this.findAnimal())!=null) {
-		InformationAboutAnimal inform=new InformationAboutAnimal(animal);
-		inform.setVisible(true);
+		//this.info.setVisible(false);
+			if (info!=null) {info.infoAnimal.setBigCursor(false); info.setVisible(false);}
+		this.info=new InformationAboutAnimal(animal);
+		info.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+			info.infoAnimal.setBigCursor(false);
+			info.setVisible(false);
+			}
+			});
+		//listInfo.add(inform);
+		info.setVisible(true);
 		}
 	}
 	public void paintComponent(Graphics g) {    // рисуем всех животных и всю траву
@@ -110,7 +113,9 @@ import javax.swing.*;
 												val.getYPosition(),sizeOfCell,sizeOfCell, null);
 						    
 						    
-						    
+						    if (val.haveBigCursor()) {
+						    	g.drawImage(Information.getImageBigCursor(), val.getXPosition()-25, val.getYPosition()-25, 25, 25, null);
+						    }
 						    
 						}
 						
@@ -130,13 +135,20 @@ import javax.swing.*;
 					    				val.getXPosition(), 
 												val.getYPosition(),sizeOfCell,sizeOfCell, null);
 						    
-						    
+						    if (val.haveBigCursor()) {
+						    	g.drawImage(Information.getImageBigCursor(), val.getXPosition()-25, val.getYPosition()-25, 25, 25, null);
+						    }
 						    
 						    
 						}
 						
 						if (isEvent) {this.showInformationAboutAnimal(); isEvent=false;}
-						
+						/*if (!listInfo.isEmpty()) {
+							for (Iterator<InformationAboutAnimal> current = this.listInfo.iterator(); current.hasNext(); ) {
+								current.next().repaintInfo();
+							}
+						}*/
+						if (info!=null) {info.repaintInfo();}
 						
 					}
 						
